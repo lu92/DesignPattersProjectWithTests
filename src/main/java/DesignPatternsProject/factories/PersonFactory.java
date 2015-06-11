@@ -32,10 +32,6 @@ public class PersonFactory extends AbstractFactory {
                 personObject = new Client();
                 createInstances(personObject);
                 break;
-            case CONSULTANT :
-                personObject = new Consultant();
-                createInstances(personObject);
-                break;
 
             case MANAGER :
                 personObject = new Manager();

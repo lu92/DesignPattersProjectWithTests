@@ -1,6 +1,5 @@
 package DesignPatternsProject.entities.productsAndServices;
 
-import javax.persistence.*;
 
 /**
  * Created by lucjan on 10.03.15.
@@ -21,25 +20,23 @@ public abstract class BaseProduct {
     public BaseProduct() {
     }
 
-    public BaseProduct(String name, double netto) {
-        this.name = name;
-        this.netto = netto;
+    public BaseProduct(String name, double netto) throws IllegalArgumentException{
+        if (name == null || name.isEmpty() || !name.matches("[a-zA-Z0-9 ]+"))
+            throw new IllegalArgumentException("name is null or empty or doesn't match to pattern");
+        else {
+            this.name = name;
+            this.netto = netto;
+        }
     }
 
-    public BaseProduct(String name, double netto, Category category) {
+    public BaseProduct(String name, double netto, Category category) throws IllegalArgumentException{
         this(name, netto);
-        this.category = category;
+        if (category == null)
+            throw new IllegalArgumentException("category is null");
+        else
+            this.category = category;
     }
 
-    public BaseProduct(Long id, String name, double netto) {
-        this(name, netto);
-        this.id = id;
-    }
-
-    public BaseProduct(Long id, String name, double netto, Category category) {
-        this(id, name, netto);
-        this.category = category;
-    }
 
 
     public Long getId() {

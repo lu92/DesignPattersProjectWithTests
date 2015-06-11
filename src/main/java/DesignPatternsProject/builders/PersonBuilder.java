@@ -48,8 +48,7 @@ public class PersonBuilder implements AbstractPersonBuilder{
 
     private  void preparePersonFromStringType(String username, String password, String email, String type) {
         String properTypeVales [] = {"client", "consultant", "manager", "student", "worker"};
-        Class PersonsTypes [] = {Client.class , Consultant.class,
-                Manager.class, Student.class, Worker.class };
+        Class PersonsTypes [] = {Client.class, Manager.class, Student.class, Worker.class };
 
         int n = 0;
 
@@ -69,9 +68,6 @@ public class PersonBuilder implements AbstractPersonBuilder{
         switch (clazz.getName()) {
             case "DesignPatternsProject.entities.actors.Client":
                 person = new Client(username, password, email);
-                break;
-            case "DesignPatternsProject.entities.actors.Consultant":
-                person = new Consultant(username, password, email);
                 break;
             case "DesignPatternsProject.entities.actors.Manager":
                 person = new Manager(username, password, email);

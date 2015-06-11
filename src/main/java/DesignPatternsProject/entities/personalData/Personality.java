@@ -32,15 +32,36 @@ public class Personality {
     public Personality() {
     }
 
-    public Personality(String name, String lastname, Date birth, String telephoneNumber) {
-        this.name = name;
-        this.lastname = lastname;
-        this.birth = birth;
-        this.telephoneNumber = telephoneNumber;
+    public Personality(String name, String lastname, String telephoneNumber) {
+        if (name == null || lastname == null || telephoneNumber == null)
+            throw new IllegalArgumentException("detect one or many null parameter pointers");
+        else if (name.isEmpty() || lastname.isEmpty() || telephoneNumber.isEmpty())
+            throw new IllegalArgumentException("one or many parameter is empty");
+        else if (!name.matches("[a-zA-Z]+") || !lastname.matches("[a-zA-Z]+"))
+            throw new IllegalArgumentException("name or lastname parameter don't match to patter");
+        else if (!telephoneNumber.matches("[0-9]{9}"))
+            throw new IllegalArgumentException("telephone number doesn't match to pattern");
+        else {
+            this.name = name;
+            this.lastname = lastname;
+            this.telephoneNumber = telephoneNumber;
+        }
     }
 
-    public Personality(String name, String lastname, String birth, String telephoneNumber) {
-        this(name, lastname, new Date(birth), telephoneNumber);
+    public Personality(String name, String lastname, Date birth, String telephoneNumber) throws IllegalArgumentException{
+        if  (birth == null)
+            throw new IllegalArgumentException("detect one or many null parameter pointers");
+        else {
+            this.birth = birth;
+        }
+    }
+
+    public Personality(String name, String lastname, String birth, String telephoneNumber) throws IllegalArgumentException{
+        this(name, lastname, telephoneNumber);
+        if (!birth.matches("[0-3]{1}[0-9]{1}/[0-3]{1}[0-9]{1}/[0-9]{4}"))
+            throw new IllegalArgumentException("birth doesn't match to pattern");
+        else
+            this.birth = new Date(birth);
     }
     public Personality(Long personality_id, String name, String lastname, String birth, String telephoneNumber) {
         this(name, lastname, birth, telephoneNumber);

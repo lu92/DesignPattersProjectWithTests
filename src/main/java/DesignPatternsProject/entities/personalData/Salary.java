@@ -1,6 +1,7 @@
 package DesignPatternsProject.entities.personalData;
 
-import javax.persistence.*;
+
+import java.util.IllegalFormatException;
 
 /**
  * Created by lucjan on 10.03.15.
@@ -11,6 +12,7 @@ public class Salary {
     private Long id;
 
     private EmploymentContractType type;
+    private static final double MINIMUM_BRUTTO_SALARY = 2200;
 
     private double netto;
     private double brutto;
@@ -19,26 +21,26 @@ public class Salary {
     public Salary() {
     }
 
-    public Salary(EmploymentContractType type, double brutto) {
-        this.type = type;
-        this.brutto = brutto;
-        if (type == EmploymentContractType.REGULAR_EMPLOYMENT) {
-            this.insurancePrice = 30 * brutto / 100;
-            this.netto = brutto - insurancePrice;
-        }
+    public Salary(EmploymentContractType type, double brutto) throws IllegalArgumentException{
 
-        if (type == EmploymentContractType.FIXED_TERM_EMPLOYMENT) {
-            this.insurancePrice = 10 * brutto / 100;
-            this.netto = brutto - insurancePrice;
-        }
+        if (type == null || brutto < MINIMUM_BRUTTO_SALARY )
+            throw new IllegalArgumentException("Invalid parameters");
+        else {
+            this.type = type;
+            this.brutto = brutto;
+            if (type == EmploymentContractType.REGULAR_EMPLOYMENT) {
+                this.insurancePrice = 30 * brutto / 100;
+                this.netto = brutto - insurancePrice;
+            }
 
+            if (type == EmploymentContractType.FIXED_TERM_EMPLOYMENT) {
+                this.insurancePrice = 10 * brutto / 100;
+                this.netto = brutto - insurancePrice;
+            }
+        }
     }
 
     //      Constructors only for tests
-
-
-
-
 
     public Long getId() {
         return id;

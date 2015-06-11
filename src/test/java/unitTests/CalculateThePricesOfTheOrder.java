@@ -1,4 +1,4 @@
-package unitTests.Taxation;
+package unitTests;
 
 import DesignPatternsProject.entities.orders.OrderDetails;
 import DesignPatternsProject.entities.productsAndServices.Product;
@@ -17,7 +17,7 @@ import java.util.Date;
 /**
  * Created by lucjan on 05.06.15.
  */
-public class TaxationTest {
+public class CalculateThePricesOfTheOrder {
 
     @Test
     public void OrderWithPolishTaxation08() {
@@ -48,9 +48,6 @@ public class TaxationTest {
 
     @Test
     public void OrderWithUsaTaxation() {
-//        OrderDetails orderDetails = new OrderDetails(
-//                "12/05/2015", new PolishTaxation08(new Country("Poland", Currency.PLN, 1.0, 0)),
-//                ClientResource.getAnnaNowak());
 
         OrderDetails orderDetails = new OrderDetails(
                 "12/05/2015", new UsaTaxation(new Country("USA", Currency.USD, 3.73, 10)),

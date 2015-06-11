@@ -59,13 +59,7 @@ public class PersonBuilderTest {
         AbstractPersonBuilder builder = new PersonBuilder(username, password, email, Client.class);
         Client client = (Client) builder.getBuildResult();
         Assert.assertNotNull(client);
-    }
-
-    @Test
-    public void createNewConsultant() {
-        AbstractPersonBuilder builder = new PersonBuilder(username, password, email, Consultant.class);
-        Consultant consultant = (Consultant) builder.getBuildResult();
-        Assert.assertNotNull(consultant);
+        Assert.assertTrue(client instanceof Client);
     }
 
     @Test
@@ -73,6 +67,7 @@ public class PersonBuilderTest {
         AbstractPersonBuilder builder = new PersonBuilder(username, password, email, Manager.class);
         Manager manager = (Manager) builder.getBuildResult();
         Assert.assertNotNull(manager);
+        Assert.assertTrue(manager instanceof Manager);
     }
 
     @Test
@@ -80,6 +75,7 @@ public class PersonBuilderTest {
         AbstractPersonBuilder builder = new PersonBuilder(username, password, email, Student.class);
         Student student = (Student) builder.getBuildResult();
         Assert.assertNotNull(student);
+        Assert.assertTrue(student instanceof Student);
     }
 
     @Test
@@ -87,6 +83,7 @@ public class PersonBuilderTest {
         AbstractPersonBuilder builder = new PersonBuilder(username, password, email, Worker.class);
         Worker worker = (Worker) builder.getBuildResult();
         Assert.assertNotNull(worker);
+        Assert.assertTrue(worker instanceof Worker);
     }
 
     @Test

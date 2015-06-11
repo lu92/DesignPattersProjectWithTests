@@ -25,30 +25,32 @@ public abstract class AbstractOrderDetails {
     }
 
     public AbstractOrderDetails(String date, TaxationStrategy taxationStrategy, Client client) {
-        this.date = new Date(date);
-        this.taxation = taxationStrategy;
-        this.client = client;
-        taxationStrategy.setOrderDetails(this);
+        if (date == null || taxationStrategy == null || client == null)
+            throw new IllegalArgumentException("detect one or many null parameter pointers");
+        else if (date.isEmpty() || !date.matches("[0-3]{1}[0-9]{1}/[0-3]{1}[0-9]{1}/[0-9]{4}"))
+            throw new IllegalArgumentException("date doesn't match to pattern or is empty");
+        else {
+            this.date = new Date(date);
+            this.taxation = taxationStrategy;
+            this.client = client;
+            taxationStrategy.setOrderDetails(this);
+        }
     }
 
     public void addAnyBaseProduct(BaseProduct... baseProducts) {
         for (BaseProduct anyBaseProduct : baseProducts)
+            if (anyBaseProduct == null)
+                throw new IllegalArgumentException("one of the products or servises is null");
+
+        for (BaseProduct anyBaseProduct : baseProducts)
             order.add(anyBaseProduct);
     }
 
-    public void addProduct(Product ... products) {
-        for (Product product : products)
-            order.add(product);
-    }
-
-
-    public void addService(Service ... services) {
-        for(Service service : services)
-            order.add(service);
-    }
-
-    public void removeProduct(Product product) {
-        order.remove(product);
+    public void removeBaseProduct(BaseProduct baseProduct) throws IllegalArgumentException{
+        if (baseProduct == null)
+            throw new IllegalArgumentException("baseProduct can't be null");
+        else
+            order.remove(baseProduct);
     }
 
 

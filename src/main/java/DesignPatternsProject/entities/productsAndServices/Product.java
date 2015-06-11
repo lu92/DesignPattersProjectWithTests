@@ -16,11 +16,4 @@ public class Product extends BaseProduct {
         super(name, netto, category);
     }
 
-    public Product(Long id, String name, double netto) {
-        super(id, name, netto);
-    }
-
-    public Product(Long id, String name, double netto, Category category) {
-        super(id, name, netto, category);
-    }
 }

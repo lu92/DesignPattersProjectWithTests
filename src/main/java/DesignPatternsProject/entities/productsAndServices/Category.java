@@ -36,11 +36,6 @@ public class Category {
             products.add(product);
     }
 
-    public void addProducts(List<BaseProduct> baseProductList) {
-        for (BaseProduct product : baseProductList)
-            products.add(product);
-    }
-
     public Long getCategory_id() {
         return category_id;
     }

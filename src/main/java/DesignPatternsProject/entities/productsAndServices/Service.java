@@ -12,43 +12,28 @@ public class Service extends BaseProduct{
     public Service() {
     }
 
-    public Service(String name, double netto) {
+
+    public Service(String name, double netto) throws IllegalArgumentException {
         super(name, netto);
     }
 
-    public Service(String name, double netto, Category category) {
+    public Service(String name, double netto, Category category) throws IllegalArgumentException {
         super(name, netto, category);
     }
 
-    public Service(Long id, String name, double netto) {
-        super(id, name, netto);
-    }
-
-    public Service(Long id, String name, double netto, Category category) {
-        super(id, name, netto, category);
-    }
-
-    public Service(Worker worker) {
-        this.worker = worker;
-    }
-
-    public Service(String name, double netto, Worker worker) {
+    public Service(String name, double netto, Worker worker) throws IllegalArgumentException{
         super(name, netto);
-        this.worker = worker;
+        if (worker == null)
+            throw new IllegalArgumentException("worker can't be null");
+        else
+            this.worker = worker;
     }
 
-    public Service(String name, double netto, Category category, Worker worker) {
-        super(name, netto, category);
-        this.worker = worker;
+    public Worker getWorker() {
+        return worker;
     }
 
-    public Service(Long id, String name, double netto, Worker worker) {
-        super(id, name, netto);
-        this.worker = worker;
-    }
-
-    public Service(Long id, String name, double netto, Category category, Worker worker) {
-        super(id, name, netto, category);
+    public void setWorker(Worker worker) {
         this.worker = worker;
     }
 }
