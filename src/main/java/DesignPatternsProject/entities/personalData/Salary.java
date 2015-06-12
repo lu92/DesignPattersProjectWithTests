@@ -1,22 +1,35 @@
 package DesignPatternsProject.entities.personalData;
 
 
-import java.util.IllegalFormatException;
+import DesignPatternsProject.entities.actors.Person;
+import org.neo4j.graphdb.Direction;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.neo4j.annotation.Fetch;
+import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 
 /**
  * Created by lucjan on 10.03.15.
  */
-
+@NodeEntity
 public class Salary {
 
+    @GraphId
     private Long id;
-
     private EmploymentContractType type;
+
+    @Transient
     private static final double MINIMUM_BRUTTO_SALARY = 2200;
 
     private double netto;
     private double brutto;
     private double insurancePrice;  // cena ubezpieczenia
+
+
+    @Fetch
+    @RelatedTo(type = "PERSON_SALARY", direction = Direction.BOTH)
+    private Person person;
 
     public Salary() {
     }

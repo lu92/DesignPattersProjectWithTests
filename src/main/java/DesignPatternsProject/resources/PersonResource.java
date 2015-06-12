@@ -56,7 +56,7 @@ public class PersonResource {
         personBuilder.addRoles(
                 RoleResource.getJAVADeveloper(),
                 RoleResource.getWorkerRole());
-        personBuilder.setSalary(new Salary(EmploymentContractType.REGULAR_EMPLOYMENT, 5500));
+        personBuilder.setSalary(new Salary(EmploymentContractType.REGULAR_EMPLOYMENT, 7001));
         return personBuilder.getBuildResult();
     }
 

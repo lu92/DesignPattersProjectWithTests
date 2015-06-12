@@ -1,21 +1,28 @@
 package DesignPatternsProject.entities.productsAndServices;
 
 
-import java.util.ArrayList;
+import org.neo4j.graphdb.Direction;
+import org.springframework.data.neo4j.annotation.Fetch;
+import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
+
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
  * Created by lucjan on 10.03.15.
  */
 
-//@Entity
+@NodeEntity
 public class Category {
 
-//    @Id @GeneratedValue
+
+    @GraphId
     private Long category_id;
     private String name;
+
+    @Fetch @RelatedTo(type = "CATEGORY_BASEPRODUCT", direction = Direction.BOTH)
     private Set<BaseProduct> products = new HashSet<>();
 
 
@@ -76,5 +83,14 @@ public class Category {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "category_id=" + category_id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

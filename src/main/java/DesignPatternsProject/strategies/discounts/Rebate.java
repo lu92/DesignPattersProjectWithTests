@@ -9,7 +9,7 @@ public class Rebate  extends DiscountConditionStrategy{
     private double percent;    //  procent zniznki
 
     public Rebate(long amount, double percent) throws IllegalArgumentException{
-        if (amount >= 0 && percent >= 0) {
+        if (amount >= 0 && percent >= 0 && percent <= 100) {
             this.amount = amount;
             this.percent = percent;
         } else

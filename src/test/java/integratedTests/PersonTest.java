@@ -1,10 +1,7 @@
 package integratedTests;
 
-import DesignPatternsProject.repositories.AddressRepository;
-import DesignPatternsProject.repositories.PersonRepository;
-import DesignPatternsProject.repositories.RoleRepository;
+import DesignPatternsProject.repositories.*;
 import DesignPatternsProject.resources.PersonResource;
-import DesignPatternsProject.repositories.PrivilegeRepository;
 import DesignPatternsProject.Neo4jTestApplication;
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,14 +32,40 @@ public class PersonTest {
     @Autowired
     private PrivilegeRepository privilegeRepository;
 
+    @Autowired
+    private SalaryRepository salaryRepository;
+
     @Test @Rollback(true)
-    public void savePerson() {
+    public void saveSinglePerson() {
         Assert.assertNotNull(personRepository);
+        clearDatabase();
         personRepository.save(PersonResource.getJavaDeveloperWojciechSeliga());
         Assert.assertEquals(1, personRepository.count());
         Assert.assertEquals(1, addressRepository.count());
         Assert.assertEquals(2, roleRepository.count());
         Assert.assertEquals(6, privilegeRepository.count());
+        Assert.assertEquals(1, salaryRepository.count());
     }
 
+    @Test @Rollback(true)
+    public void saveTwoPersons() {
+        Assert.assertNotNull(personRepository);
+        clearDatabase();
+        personRepository.save(PersonResource.getJavaDeveloperWojciechSeliga());
+        personRepository.save(PersonResource.getJavaDeveloperPiotrNawalka());
+
+        Assert.assertEquals(2, personRepository.count());
+        Assert.assertEquals(2, addressRepository.count());
+        Assert.assertEquals(2, roleRepository.count());
+        Assert.assertEquals(6, privilegeRepository.count());
+        Assert.assertEquals(2, salaryRepository.count());
+    }
+
+    private void clearDatabase() {
+        personRepository.deleteAll();
+        addressRepository.deleteAll();
+        roleRepository.deleteAll();
+        privilegeRepository.deleteAll();
+        salaryRepository.deleteAll();
+    }
 }

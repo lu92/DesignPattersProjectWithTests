@@ -16,4 +16,8 @@ public class CountryResources {
     public static Country getUnitedStates() {
         return new Country("United States", Currency.USD, 3.70, 10.0);
     }
+
+    public static Country getGermany() {
+        return new Country("Germany", Currency.EURO, 3.90, 5.0);
+    }
 }

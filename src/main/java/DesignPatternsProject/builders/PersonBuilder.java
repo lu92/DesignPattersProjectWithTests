@@ -46,7 +46,7 @@ public class PersonBuilder implements AbstractPersonBuilder{
         setAddress(address);
     }
 
-    private  void preparePersonFromStringType(String username, String password, String email, String type) {
+    protected void preparePersonFromStringType(String username, String password, String email, String type) {
         String properTypeVales [] = {"client", "consultant", "manager", "student", "worker"};
         Class PersonsTypes [] = {Client.class, Manager.class, Student.class, Worker.class };
 
@@ -63,7 +63,7 @@ public class PersonBuilder implements AbstractPersonBuilder{
             throw new IllegalArgumentException("constructor cannot set invalid name of Person Object");
     }
 
-    private void preparePersonFromClassType(String username, String password, String email, Class clazz) throws IllegalArgumentException {
+    protected void preparePersonFromClassType(String username, String password, String email, Class clazz) throws IllegalArgumentException {
         this.clazz = clazz;
         switch (clazz.getName()) {
             case "DesignPatternsProject.entities.actors.Client":

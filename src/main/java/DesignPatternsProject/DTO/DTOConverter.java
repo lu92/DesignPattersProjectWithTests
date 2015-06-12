@@ -2,8 +2,12 @@ package DesignPatternsProject.DTO;
 
 import DesignPatternsProject.builders.PersonBuilder;
 import DesignPatternsProject.entities.actors.*;
+import DesignPatternsProject.entities.orders.AbstractOrderDetails;
+import DesignPatternsProject.entities.orders.OrderDetails;
 import DesignPatternsProject.entities.personalData.Privilege;
 import DesignPatternsProject.entities.personalData.Role;
+import DesignPatternsProject.entities.productsAndServices.BaseProduct;
+import DesignPatternsProject.entities.productsAndServices.Category;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -103,6 +107,38 @@ public class DTOConverter {
             }
         }
         return roleDTOInfo;
+    }
+
+    public static CategoryDTOInfo toCategoryDTOInfo(Category category) {
+        CategoryDTOInfo categoryDTOInfo = new CategoryDTOInfo();
+        if (category != null) {
+            categoryDTOInfo.setName(category.getName());
+            for (BaseProduct baseProduct : category.getProducts())
+                categoryDTOInfo.addBaseProduct(baseProduct);
+        }
+        return categoryDTOInfo;
+    }
+
+    public static BaseProductDTOInfo toBaseProductDTOInfo(BaseProduct baseProduct) {
+        BaseProductDTOInfo baseProductDTOInfo = new BaseProductDTOInfo();
+        if (baseProduct != null) {
+            baseProductDTOInfo.setBaseProductId(baseProduct.getId());
+            baseProductDTOInfo.setName(baseProduct.getName());
+            baseProductDTOInfo.setBrutto(baseProduct.getBrutto());
+        }
+        return baseProductDTOInfo;
+    }
+
+    public static OrderDetailsDTOInfo toOrderDetailsDTOInfo(AbstractOrderDetails orderDetails) {
+        OrderDetailsDTOInfo orderDetailsDTOInfo = new OrderDetailsDTOInfo();
+        if (orderDetails != null) {
+            orderDetailsDTOInfo.setOrderDetailId(orderDetails.getOrder_id());
+            orderDetailsDTOInfo.setDate(formatter.format(orderDetails.getDate()));
+            orderDetailsDTOInfo.setClient(DTOConverter.toPersonDTOInfo(orderDetails.getClient()));
+            for (BaseProduct baseProduct : orderDetails.getOrder())
+                orderDetailsDTOInfo.addBaseProduct(baseProduct);
+        }
+        return orderDetailsDTOInfo;
     }
 
 }

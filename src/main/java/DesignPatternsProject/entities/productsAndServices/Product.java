@@ -16,4 +16,8 @@ public class Product extends BaseProduct {
         super(name, netto, category);
     }
 
+    @Override
+    public String toString() {
+        return "Product{} " + super.toString();
+    }
 }

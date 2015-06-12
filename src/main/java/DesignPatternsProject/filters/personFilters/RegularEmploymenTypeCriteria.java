@@ -23,11 +23,8 @@ public class RegularEmploymenTypeCriteria extends PersonCriteria {
     public Set<Person> performFilter(Set<Person> allPersons) throws IllegalArgumentException {
         Set<Person> personsFindedByRegularEmploymentType = new HashSet<>();
         for (Person person : allPersons)
-            if (person.getSalary() == null)
-                throw new IllegalArgumentException("Cannot recognize salary - null pointer");
-            else
-                if (person.getSalary().getType() == EmploymentContractType.REGULAR_EMPLOYMENT)
-                    personsFindedByRegularEmploymentType.add(person);
+            if (person.getSalary().getType() == EmploymentContractType.REGULAR_EMPLOYMENT)
+                personsFindedByRegularEmploymentType.add(person);
 
         return personsFindedByRegularEmploymentType;
     }

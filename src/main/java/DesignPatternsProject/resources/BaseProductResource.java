@@ -1,5 +1,6 @@
 package DesignPatternsProject.resources;
 
+import DesignPatternsProject.Person;
 import DesignPatternsProject.entities.actors.Worker;
 import DesignPatternsProject.entities.productsAndServices.BaseProduct;
 import DesignPatternsProject.entities.productsAndServices.Product;
@@ -39,7 +40,7 @@ public class BaseProductResource {
     }
 
     public static Service getConsulting() {
-        Service service  = new Service("Consulting", 2 * 1000, (Worker) PersonResource.getJavaDeveloperWojciechSeliga());
+        Service service  = new Service("Consulting", 2 * 1000, PersonResource.getJavaDeveloperWojciechSeliga());
         return service;
     }
 

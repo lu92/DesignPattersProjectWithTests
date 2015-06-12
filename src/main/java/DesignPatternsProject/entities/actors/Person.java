@@ -4,6 +4,8 @@ import DesignPatternsProject.entities.personalData.Address;
 import DesignPatternsProject.entities.personalData.Personality;
 import DesignPatternsProject.entities.personalData.Role;
 import DesignPatternsProject.entities.personalData.Salary;
+import DesignPatternsProject.entities.productsAndServices.Category;
+import DesignPatternsProject.entities.productsAndServices.Service;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.neo4j.annotation.Fetch;
@@ -38,31 +40,52 @@ public abstract class Person {
     private Set<Role> roleStorage = new HashSet<>();
 
 
+    @Fetch
+    @RelatedTo(type = "PERSON_SALARY", direction = Direction.BOTH)
     private Salary salary;
+
+
+    @Fetch
+    @RelatedTo(type = "PERSON_SERVICE", direction = Direction.BOTH)
+    private Set<Service> serviceStorage = new HashSet<>();
 
     public Person() {
     }
 
 
-    public Person(String username, String password, String email) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
+    public Person(String username, String password, String email) throws IllegalArgumentException{
+        if (username == null || password == null || email == null)
+            throw new IllegalArgumentException("detect one or many null parameter pointers");
+        else if (username.isEmpty() || password.isEmpty() || email.isEmpty())
+            throw new IllegalArgumentException("one or many parameter is empty");
+        else if (!email.matches("[a-zA-z0-9.]+@[a-zA-z0-9]+.[a-z]+"))
+            throw new IllegalArgumentException("email doesn't match to patern");
+        else {
+            this.username = username;
+            this.password = password;
+            this.email = email;
+        }
     }
 
-    public Person(String username, String password, String email, Personality personality, Address address, Set<Role> role, Salary salary) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.personality = personality;
-        this.address = address;
-        this.roleStorage = role;
-        this.salary = salary;
+    public Person(String username, String password, String email, Personality personality, Address address, Set<Role> role, Salary salary) throws IllegalArgumentException{
+        this(username, password, email);
+        if (personality == null || address == null || roleStorage == null || salary == null)
+            throw new IllegalArgumentException("detect one or many null parameter pointers");
+        else {
+            this.personality = personality;
+            this.address = address;
+            this.roleStorage = role;
+            this.salary = salary;
+        }
     }
 
-    public Person(Long person_id, String username, String password, String email, Personality personality, Address address, Set<Role> role, Salary salary) {
+    public Person(Long person_id, String username, String password, String email, Personality personality, Address address, Set<Role> role, Salary salary) throws IllegalArgumentException{
         this(username, password, email, personality, address, role, salary);
-        this.id = person_id;
+        if (person_id == null )
+            throw new IllegalArgumentException("detect one or many null parameter pointers");
+        else {
+            this.id = person_id;
+        }
     }
 
     public void addRoles(Role ... roles) {
@@ -179,4 +202,12 @@ public abstract class Person {
                 ", salary=" + salary +
                 '}';
     }
+
+//    public Category getCategory() {
+//        return category;
+//    }
+//
+//    public void setCategory(Category category) {
+//        this.category = category;
+//    }
 }

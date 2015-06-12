@@ -8,17 +8,34 @@ import DesignPatternsProject.entities.productsAndServices.Product;
 import DesignPatternsProject.entities.productsAndServices.Service;
 import DesignPatternsProject.strategies.Country;
 import DesignPatternsProject.strategies.taxations.TaxationStrategy;
+import org.neo4j.graphdb.Direction;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.neo4j.annotation.Fetch;
+import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 
 import java.util.*;
 
 /**
  * Created by lucjan on 29.04.15.
  */
+@NodeEntity
 public abstract class AbstractOrderDetails {
+    @GraphId
     protected Long order_id;
     protected Date date;
+
+    @Transient
     protected TaxationStrategy taxation;
+
+//    @Fetch
+//    @RelatedTo(type = "ORDER_CLIENT", direction = Direction.BOTH)
+    @Transient
     protected Client client;
+
+    @Fetch @RelatedTo(type = "ORDER_BASEPRODUCT", direction = Direction.BOTH)
+//    @Transient
     protected Set<BaseProduct> order = new HashSet<>();
 
     public AbstractOrderDetails() {
