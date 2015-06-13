@@ -2,6 +2,7 @@ package DesignPatternsProject.controllers;
 
 import DesignPatternsProject.DTO.CategoryDTOInfo;
 import DesignPatternsProject.DTO.CategoryFormDTO;
+import DesignPatternsProject.DTO.SingleArgumentDTO;
 import DesignPatternsProject.entities.productsAndServices.Category;
 import DesignPatternsProject.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,10 @@ public class CategoryController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/delete/{categoryId}", method = RequestMethod.DELETE)
-    public void deleteCategory(@PathVariable("categoryId") long categoryId) {
-        categoryService.deleteCategory(categoryId);
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public Set<CategoryDTOInfo> deleteCategory(@RequestBody SingleArgumentDTO singleArgumentDTO) {
+        categoryService.deleteCategory(singleArgumentDTO.getValue());
+        return categoryService.getAllCategoryDtoInfos();
     }
 
     @ResponseBody

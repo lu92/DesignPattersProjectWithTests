@@ -1,9 +1,8 @@
 package DesignPatternsProject.services;
 
-import DesignPatternsProject.DTO.DTOConverter;
-import DesignPatternsProject.DTO.LoginDataDTO;
-import DesignPatternsProject.DTO.PersonDTOInfo;
-import DesignPatternsProject.DTO.PersonFormDTO;
+import DesignPatternsProject.DTO.*;
+import DesignPatternsProject.entities.Comunication.Mail;
+import DesignPatternsProject.entities.actors.Client;
 import DesignPatternsProject.entities.actors.Person;
 import DesignPatternsProject.entities.personalData.Role;
 import DesignPatternsProject.repositories.PersonRepository;
@@ -88,6 +87,41 @@ public class PersonServiceImpl implements PersonService {
         for (Person person : getAllPersons())
             personDTOInfos.add(DTOConverter.toPersonDTOInfo(person));
         return personDTOInfos;
+    }
+
+    @Override
+    public Set<PersonDTOInfo> getAllPersonDtoInfosWithoutClients() {
+        Set<PersonDTOInfo> onlyPersonsWithoutClients = new HashSet<>();
+        for (Person person : personRepository.findAll())
+            if (person instanceof Client == false)
+                onlyPersonsWithoutClients.add(DTOConverter.toPersonDTOInfo(person));
+
+        return onlyPersonsWithoutClients;
+    }
+
+    @Override
+    public boolean addMail(MailFromDTO mailFromDTO) throws IllegalArgumentException{
+        Person personFrom = null;
+        Person personTo = null;
+
+        try {
+            personFrom = personRepository.findOne(mailFromDTO.getFromId());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("cannot find person with Id " + mailFromDTO.getFromId());
+        }
+
+        try {
+            personTo = personRepository.findOne(mailFromDTO.getToId());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("cannot find person with Id " + mailFromDTO.getToId());
+        }
+
+        Mail mail = new Mail(personFrom, personTo, mailFromDTO.getTitle(), mailFromDTO.getMessage());
+        personFrom.addMail(mail);
+        personTo.addMail(mail);
+        personRepository.save(personFrom);
+        personRepository.save(personTo);
+        return true;
     }
 
     private Set<Person> getAllPersons() {

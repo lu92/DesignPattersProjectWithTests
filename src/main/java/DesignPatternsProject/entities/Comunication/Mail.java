@@ -1,6 +1,7 @@
 package DesignPatternsProject.entities.Comunication;
 
 import DesignPatternsProject.entities.actors.Person;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.neo4j.annotation.*;
 
 /**

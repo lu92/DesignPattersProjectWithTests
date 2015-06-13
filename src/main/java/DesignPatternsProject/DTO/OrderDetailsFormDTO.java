@@ -9,7 +9,7 @@ import java.util.Set;
 public class OrderDetailsFormDTO {
     private String date;
     private Long clientId;
-    private Set<BaseProductFormDTO> baseProductFormDTOSet = new HashSet<>();
+    private Set<ProductFormDTO> baseProductFormDTOSet = new HashSet<>();
 
     public OrderDetailsFormDTO() {
     }
@@ -19,8 +19,8 @@ public class OrderDetailsFormDTO {
         this.clientId = clientId;
     }
 
-    public void addBaseProductFormDTO(BaseProductFormDTO ... baseProductFormDTOs) {
-        for (BaseProductFormDTO baseProductFormDTO : baseProductFormDTOs)
+    public void addBaseProductFormDTO(ProductFormDTO... baseProductFormDTOs) {
+        for (ProductFormDTO baseProductFormDTO : baseProductFormDTOs)
             baseProductFormDTOSet.add(baseProductFormDTO);
 
     }
@@ -41,11 +41,11 @@ public class OrderDetailsFormDTO {
         this.clientId = clientId;
     }
 
-    public Set<BaseProductFormDTO> getBaseProductFormDTOSet() {
+    public Set<ProductFormDTO> getBaseProductFormDTOSet() {
         return baseProductFormDTOSet;
     }
 
-    public void setBaseProductFormDTOSet(Set<BaseProductFormDTO> baseProductFormDTOSet) {
+    public void setBaseProductFormDTOSet(Set<ProductFormDTO> baseProductFormDTOSet) {
         this.baseProductFormDTOSet = baseProductFormDTOSet;
     }
 }

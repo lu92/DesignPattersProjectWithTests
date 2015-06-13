@@ -56,7 +56,6 @@ public class PersonFormDTO {
                          String country, String city, String street, String zipCode) {
         this(username, password, email, name, lastName, birth, telephoneNumber, country, city, street, zipCode);
         this.personType = personType;
-
     }
 
 

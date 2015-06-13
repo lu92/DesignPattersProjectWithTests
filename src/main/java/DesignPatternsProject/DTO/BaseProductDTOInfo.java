@@ -7,14 +7,17 @@ public class BaseProductDTOInfo {
     private Long baseProductId;
     private String name;
     private double brutto;
+    private String categoryName;
 
     public BaseProductDTOInfo() {
     }
 
-    public BaseProductDTOInfo(Long baseProductId, String name, double brutto) {
+
+    public BaseProductDTOInfo(Long baseProductId, String name, double brutto, String categoryName) {
         this.baseProductId = baseProductId;
         this.name = name;
         this.brutto = brutto;
+        this.categoryName = categoryName;
     }
 
     public Long getBaseProductId() {
@@ -39,5 +42,13 @@ public class BaseProductDTOInfo {
 
     public void setBrutto(double brutto) {
         this.brutto = brutto;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

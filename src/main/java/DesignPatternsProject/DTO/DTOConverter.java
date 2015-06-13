@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
  */
 public class DTOConverter {
 
+
     private static Format formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     public static Person toPerson(PersonFormDTO personFormDTO) {
@@ -28,6 +29,22 @@ public class DTOConverter {
                 personFormDTO.getCity(), personFormDTO.getStreet(), personFormDTO.getZipCode());
         return personBuilder.getBuildResult();
     }
+
+    public static Client toClient(ClientFormDTO clientFormDTO) {
+        PersonBuilder personBuilder = new PersonBuilder(
+                clientFormDTO.getUsername(), clientFormDTO.getPassword(),
+                clientFormDTO.getEmail(), clientFormDTO.getPersonType().toString());
+        personBuilder.setPersonality(clientFormDTO.getName(), clientFormDTO.getLastName(),
+                clientFormDTO.getBirth(), clientFormDTO.getTelephoneNumber());
+        personBuilder.setAddress(clientFormDTO.getCountry(),
+                clientFormDTO.getCity(), clientFormDTO.getStreet(), clientFormDTO.getZipCode());
+        Client client = (Client) personBuilder.getBuildResult();
+        client.setAccountNumber(clientFormDTO.getAccontNumber());
+        client.setPIN(clientFormDTO.getPIN());
+        return client;
+    }
+
+
 
     public static PersonFormDTO toPersonFormDTO(Person person) {
 
@@ -122,11 +139,12 @@ public class DTOConverter {
         return categoryDTOInfo;
     }
 
-    public static BaseProduct toBaseProduct(BaseProductFormDTO baseProductFormDTO) {
-        if (baseProductFormDTO.getBaseProductType() == BaseProductType.PRODUCT)
-            return new Product(baseProductFormDTO.getName(), baseProductFormDTO.getNetto());
-        else
-            return new Service(baseProductFormDTO.getName(), baseProductFormDTO.getNetto());
+    public static Product toProduct(ProductFormDTO productFormDTO) {
+        return new Product(productFormDTO.getName(), productFormDTO.getNetto());
+    }
+
+    public static Service toService(ServiceFormDTO serviceFormDTO) {
+        return new Service(serviceFormDTO.getName(), serviceFormDTO.getNetto());
     }
 
     public static BaseProductDTOInfo toBaseProductDTOInfo(BaseProduct baseProduct) {
@@ -135,6 +153,7 @@ public class DTOConverter {
             baseProductDTOInfo.setBaseProductId(baseProduct.getId());
             baseProductDTOInfo.setName(baseProduct.getName());
             baseProductDTOInfo.setBrutto(baseProduct.getBrutto());
+            baseProductDTOInfo.setCategoryName(baseProduct.getCategory().getName());
         }
         return baseProductDTOInfo;
     }

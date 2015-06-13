@@ -93,12 +93,16 @@ public abstract class BaseProduct {
         return name;
     }
 
-    public Category getCategory() {
-        return category;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getNetto() {
         return netto;
+    }
+
+    public void setNetto(double netto) {
+        this.netto = netto;
     }
 
     public double getBrutto() {
@@ -109,6 +113,21 @@ public abstract class BaseProduct {
         this.brutto = brutto;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Set<AbstractOrderDetails> getAbstractOrderDetailsSet() {
+        return abstractOrderDetailsSet;
+    }
+
+    public void setAbstractOrderDetailsSet(Set<AbstractOrderDetails> abstractOrderDetailsSet) {
+        this.abstractOrderDetailsSet = abstractOrderDetailsSet;
+    }
 
     @Override
     public String toString() {

@@ -8,6 +8,7 @@ import DesignPatternsProject.entities.personalData.Salary;
 import DesignPatternsProject.entities.productsAndServices.Category;
 import DesignPatternsProject.entities.productsAndServices.Service;
 import org.neo4j.graphdb.Direction;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.neo4j.annotation.*;
 
@@ -20,7 +21,7 @@ import java.util.Set;
  */
 @NodeEntity
 @TypeAlias("Person")
-public abstract class Person {
+public class Person {
 
     @GraphId
     private Long id;
@@ -49,6 +50,7 @@ public abstract class Person {
 
 
     @Fetch @RelatedToVia(type = "MAIL_TO", direction = Direction.BOTH)
+//    @Transient
     private Set<Mail> mailStorage = new HashSet<>();
 
 
