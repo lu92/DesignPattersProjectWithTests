@@ -1,5 +1,6 @@
 package DesignPatternsProject.entities.actors;
 
+import DesignPatternsProject.entities.Comunication.Mail;
 import DesignPatternsProject.entities.personalData.Address;
 import DesignPatternsProject.entities.personalData.Personality;
 import DesignPatternsProject.entities.personalData.Role;
@@ -8,10 +9,7 @@ import DesignPatternsProject.entities.productsAndServices.Category;
 import DesignPatternsProject.entities.productsAndServices.Service;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.annotation.TypeAlias;
-import org.springframework.data.neo4j.annotation.Fetch;
-import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedTo;
+import org.springframework.data.neo4j.annotation.*;
 
 
 import java.util.HashSet;
@@ -48,6 +46,11 @@ public abstract class Person {
     @Fetch
     @RelatedTo(type = "PERSON_SERVICE", direction = Direction.BOTH)
     private Set<Service> serviceStorage = new HashSet<>();
+
+
+    @Fetch @RelatedToVia(type = "MAIL_TO", direction = Direction.BOTH)
+    private Set<Mail> mailStorage = new HashSet<>();
+
 
     public Person() {
     }
@@ -92,6 +95,13 @@ public abstract class Person {
         for (Role role : roles) {
             getRoleStorage().add(role);
         }
+    }
+
+    public void addMail(Mail mail) throws IllegalArgumentException{
+        if (mail == null)
+            throw new IllegalArgumentException("mail can't be null");
+        else
+            mailStorage.add(mail);
     }
 
 
@@ -189,6 +199,14 @@ public abstract class Person {
         this.salary = salary;
     }
 
+    public Set<Mail> getMailStorage() {
+        return mailStorage;
+    }
+
+    public void setMailStorage(Set<Mail> mailStorage) {
+        this.mailStorage = mailStorage;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -203,11 +221,6 @@ public abstract class Person {
                 '}';
     }
 
-//    public Category getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(Category category) {
-//        this.category = category;
-//    }
+
+
 }

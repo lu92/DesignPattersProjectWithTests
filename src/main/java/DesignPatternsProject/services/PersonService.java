@@ -17,4 +17,5 @@ public interface PersonService {
     boolean addRoleToPerson(long personId, long roleId) throws IllegalArgumentException;
     Person getPerson(long personId) throws IllegalArgumentException;
     Set<PersonDTOInfo> getAllPersonDtoInfos();
+//    boolean addMail()
 }

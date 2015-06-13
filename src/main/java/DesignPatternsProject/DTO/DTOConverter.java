@@ -6,8 +6,7 @@ import DesignPatternsProject.entities.orders.AbstractOrderDetails;
 import DesignPatternsProject.entities.orders.OrderDetails;
 import DesignPatternsProject.entities.personalData.Privilege;
 import DesignPatternsProject.entities.personalData.Role;
-import DesignPatternsProject.entities.productsAndServices.BaseProduct;
-import DesignPatternsProject.entities.productsAndServices.Category;
+import DesignPatternsProject.entities.productsAndServices.*;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -109,6 +108,10 @@ public class DTOConverter {
         return roleDTOInfo;
     }
 
+    public static Category toCategory(CategoryFormDTO categoryFormDTO) {
+        return new Category(categoryFormDTO.getName());
+    }
+
     public static CategoryDTOInfo toCategoryDTOInfo(Category category) {
         CategoryDTOInfo categoryDTOInfo = new CategoryDTOInfo();
         if (category != null) {
@@ -117,6 +120,13 @@ public class DTOConverter {
                 categoryDTOInfo.addBaseProduct(baseProduct);
         }
         return categoryDTOInfo;
+    }
+
+    public static BaseProduct toBaseProduct(BaseProductFormDTO baseProductFormDTO) {
+        if (baseProductFormDTO.getBaseProductType() == BaseProductType.PRODUCT)
+            return new Product(baseProductFormDTO.getName(), baseProductFormDTO.getNetto());
+        else
+            return new Service(baseProductFormDTO.getName(), baseProductFormDTO.getNetto());
     }
 
     public static BaseProductDTOInfo toBaseProductDTOInfo(BaseProduct baseProduct) {
@@ -139,6 +149,11 @@ public class DTOConverter {
                 orderDetailsDTOInfo.addBaseProduct(baseProduct);
         }
         return orderDetailsDTOInfo;
+    }
+
+    public static AbstractOrderDetails toOrderDetails(OrderDetailsFormDTO orderDetailsFormDTO) {
+        AbstractOrderDetails orderDetails = new OrderDetails();
+        return null;
     }
 
 }
