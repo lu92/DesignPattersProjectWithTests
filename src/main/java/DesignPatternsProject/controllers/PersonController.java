@@ -1,8 +1,6 @@
 package DesignPatternsProject.controllers;
 
-import DesignPatternsProject.DTO.PersonDTOInfo;
-import DesignPatternsProject.DTO.PersonFormDTO;
-import DesignPatternsProject.DTO.SingleArgumentDTO;
+import DesignPatternsProject.DTO.*;
 import DesignPatternsProject.entities.actors.Person;
 import DesignPatternsProject.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +33,35 @@ public class PersonController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public Set<PersonDTOInfo> deletePerson(@RequestBody SingleArgumentDTO singleArgumentDTO) {
         personService.deletePerson(singleArgumentDTO.getValue());
         return personService.getAllPersonDtoInfos();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/addMail", method = RequestMethod.POST)
+    public void addMail(@RequestBody MailFormDTO mailFormDTO) {
+        personService.addMail(mailFormDTO);
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/getNotReadedMails", method = RequestMethod.POST)
+    public Set<MailDTOInfo> getNotReaderMails(@RequestBody SingleArgumentDTO singleArgumentDTO) {
+        return personService.getNotReadedEmails(singleArgumentDTO.getValue());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getReadedMails", method = RequestMethod.POST)
+    public Set<MailDTOInfo> getReaderMails(@RequestBody SingleArgumentDTO singleArgumentDTO) {
+        return personService.getReadedMails(singleArgumentDTO.getValue());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/markMailAsReaded", method = RequestMethod.POST)
+    public MailDTOInfo markMailAsReaded(@RequestBody SingleArgumentDTO singleArgumentDTO) {
+        return personService.markMailAsReaded(singleArgumentDTO.getValue());
     }
 
 }

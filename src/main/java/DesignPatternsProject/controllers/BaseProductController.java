@@ -35,7 +35,7 @@ public class BaseProductController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public Set<BaseProductDTOInfo> deleteBaseProduct(@RequestBody SingleArgumentDTO singleArgumentDTO) {
         baseProductService.deleteBaseProduct(singleArgumentDTO.getValue());
         return baseProductService.getAllBaseProductDTOInfo();

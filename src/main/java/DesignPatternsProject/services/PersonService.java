@@ -1,10 +1,6 @@
 package DesignPatternsProject.services;
 
-import DesignPatternsProject.DTO.LoginDataDTO;
-import DesignPatternsProject.DTO.MailFromDTO;
-import DesignPatternsProject.DTO.PersonDTOInfo;
-import DesignPatternsProject.DTO.PersonFormDTO;
-import DesignPatternsProject.entities.Comunication.Mail;
+import DesignPatternsProject.DTO.*;
 import DesignPatternsProject.entities.actors.Person;
 
 import java.util.Set;
@@ -20,5 +16,8 @@ public interface PersonService {
     Person getPerson(long personId) throws IllegalArgumentException;
     Set<PersonDTOInfo> getAllPersonDtoInfos();
     Set<PersonDTOInfo> getAllPersonDtoInfosWithoutClients();
-    boolean addMail(MailFromDTO mailFromDTO) throws IllegalArgumentException;
+    boolean addMail(MailFormDTO mailFormDTO) throws IllegalArgumentException;
+    Set<MailDTOInfo> getNotReadedEmails(long personId) throws IllegalArgumentException;
+    Set<MailDTOInfo> getReadedMails(long personId) throws IllegalArgumentException;
+    MailDTOInfo markMailAsReaded(long mailId);
 }

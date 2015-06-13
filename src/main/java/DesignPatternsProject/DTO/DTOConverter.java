@@ -1,6 +1,7 @@
 package DesignPatternsProject.DTO;
 
 import DesignPatternsProject.builders.PersonBuilder;
+import DesignPatternsProject.entities.Comunication.Mail;
 import DesignPatternsProject.entities.actors.*;
 import DesignPatternsProject.entities.orders.AbstractOrderDetails;
 import DesignPatternsProject.entities.orders.OrderDetails;
@@ -131,6 +132,7 @@ public class DTOConverter {
     public static CategoryDTOInfo toCategoryDTOInfo(Category category) {
         CategoryDTOInfo categoryDTOInfo = new CategoryDTOInfo();
         if (category != null) {
+            categoryDTOInfo.setCategoryId(category.getCategory_id());
             categoryDTOInfo.setName(category.getName());
             for (BaseProduct baseProduct : category.getProducts())
                 categoryDTOInfo.addBaseProduct(baseProduct);
@@ -172,6 +174,12 @@ public class DTOConverter {
     public static AbstractOrderDetails toOrderDetails(OrderDetailsFormDTO orderDetailsFormDTO) {
         AbstractOrderDetails orderDetails = new OrderDetails();
         return null;
+    }
+
+    public static MailDTOInfo toMailDTOInfo(Mail mail) {
+        MailDTOInfo mailDTOInfo = new MailDTOInfo(mail.getId(), mail.getFrom().getEmail(),
+                mail.getFrom().getId(), mail.getTo().getEmail(),mail.getTo().getId(), mail.getTitle(), mail.getMessage());
+        return mailDTOInfo;
     }
 
 }

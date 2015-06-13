@@ -1,12 +1,21 @@
 package DesignPatternsProject.services;
 
-import DesignPatternsProject.entities.orders.AbstractOrderDetails;
+import DesignPatternsProject.DTO.OrderDetailsDTOInfo;
+
+import java.util.Set;
 
 /**
- * Created by lucjan on 13.06.15.
+ * Created by lucjan on 08.06.15.
  */
 public interface OrderDetailsService {
-    AbstractOrderDetails createOrderDetails();
+
+    OrderDetailsDTOInfo createNewOrderDetails();
+
+    boolean addBaseProductToOrderDetails(long orderId, long baseProductId);
+    void deleteBaseProductFromOrderDetails(long orderId, long baseProductId);
 
 
+
+    Set<OrderDetailsDTOInfo> getAllOrdersForSelectedClient(long clientId);
+    OrderDetailsDTOInfo getOrderDetails(long id);
 }

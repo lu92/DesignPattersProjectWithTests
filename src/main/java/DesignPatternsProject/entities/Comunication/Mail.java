@@ -1,7 +1,6 @@
 package DesignPatternsProject.entities.Comunication;
 
 import DesignPatternsProject.entities.actors.Person;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.neo4j.annotation.*;
 
 /**
@@ -22,15 +21,18 @@ public class Mail {
     private String title;
     private String message;
 
+    private boolean readed;
+
     public Mail() {
     }
 
 
-    public Mail(Person from, Person to, String title, String message) {
+    public Mail(Person from, Person to, String title, String message, boolean readed) {
         this.from = from;
         this.to = to;
         this.title = title;
         this.message = message;
+        this.readed = readed;
     }
 
 
@@ -72,5 +74,13 @@ public class Mail {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public boolean isReaded() {
+        return readed;
+    }
+
+    public void setReaded(boolean readed) {
+        this.readed = readed;
     }
 }

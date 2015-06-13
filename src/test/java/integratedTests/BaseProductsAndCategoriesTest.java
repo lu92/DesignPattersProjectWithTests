@@ -42,7 +42,7 @@ public class BaseProductsAndCategoriesTest {
     }
 
     @Test @Rollback(true)
-    public void saveCategory() {
+    public void saveCategoryAndBaseProducts() {
 
         Assert.assertNotNull(baseProductRepository);
         Assert.assertNotNull(categoryRepository);

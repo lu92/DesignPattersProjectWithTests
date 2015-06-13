@@ -1,6 +1,6 @@
 package integratedTests;
 
-import DesignPatternsProject.DTO.MailFromDTO;
+import DesignPatternsProject.DTO.MailFormDTO;
 import DesignPatternsProject.Neo4jTestApplication;
 import DesignPatternsProject.entities.Comunication.Mail;
 import DesignPatternsProject.entities.actors.Person;
@@ -41,7 +41,7 @@ public class MailTest {
         long personFromId = personRepository.save(PersonResource.getJavaDeveloperWojciechSeliga()).getId();
         long personToId = personRepository.save(PersonResource.getManagerJanKowalski()).getId();
 
-        MailFromDTO mailFromDTO = new MailFromDTO(personFromId, personToId, "mail title", "mail message");
+        MailFormDTO mailFromDTO = new MailFormDTO(personFromId, personToId, "mail title", "mail message");
         personService.addMail(mailFromDTO);
 
         Assert.assertEquals(1, mailRepository.count());

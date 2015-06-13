@@ -5,6 +5,7 @@ import DesignPatternsProject.entities.Comunication.Mail;
 import DesignPatternsProject.entities.actors.Client;
 import DesignPatternsProject.entities.actors.Person;
 import DesignPatternsProject.entities.personalData.Role;
+import DesignPatternsProject.repositories.MailRepository;
 import DesignPatternsProject.repositories.PersonRepository;
 import DesignPatternsProject.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private MailRepository mailRepository;
 
     @Override
     public Person loginToSystem(LoginDataDTO loginDataDTO) throws IllegalArgumentException {
@@ -100,28 +104,78 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public boolean addMail(MailFromDTO mailFromDTO) throws IllegalArgumentException{
+    public boolean addMail(MailFormDTO mailFormDTO) throws IllegalArgumentException{
         Person personFrom = null;
         Person personTo = null;
 
         try {
-            personFrom = personRepository.findOne(mailFromDTO.getFromId());
+            personFrom = personRepository.findOne(mailFormDTO.getFromId());
         } catch (Exception e) {
-            throw new IllegalArgumentException("cannot find person with Id " + mailFromDTO.getFromId());
+            throw new IllegalArgumentException("cannot find person with Id " + mailFormDTO.getFromId());
         }
 
         try {
-            personTo = personRepository.findOne(mailFromDTO.getToId());
+            personTo = personRepository.findOne(mailFormDTO.getToId());
         } catch (Exception e) {
-            throw new IllegalArgumentException("cannot find person with Id " + mailFromDTO.getToId());
+            throw new IllegalArgumentException("cannot find person with Id " + mailFormDTO.getToId());
         }
 
-        Mail mail = new Mail(personFrom, personTo, mailFromDTO.getTitle(), mailFromDTO.getMessage());
+        Mail mail = new Mail(personFrom, personTo, mailFormDTO.getTitle(), mailFormDTO.getMessage(), false);
         personFrom.addMail(mail);
         personTo.addMail(mail);
         personRepository.save(personFrom);
         personRepository.save(personTo);
         return true;
+    }
+
+    @Override
+    public Set<MailDTOInfo> getNotReadedEmails(long personId) throws IllegalArgumentException {
+        Set<MailDTOInfo> notReadedEmails = new HashSet<>();
+
+        Person person = null;
+        try {
+            person = personRepository.findOne(personId);
+            for (Mail mail : person.getMailStorage())
+                if (!mail.isReaded())
+                    notReadedEmails.add(DTOConverter.toMailDTOInfo(mail));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("cannot find person with id "+ personId);
+        }
+
+        return notReadedEmails;
+    }
+
+    @Override
+    public Set<MailDTOInfo> getReadedMails(long personId) throws IllegalArgumentException{
+        Set<MailDTOInfo> readedEmails = new HashSet<>();
+
+        Person person = null;
+        try {
+            person = personRepository.findOne(personId);
+            for (Mail mail : person.getMailStorage())
+                if (mail.isReaded())
+                    readedEmails.add(DTOConverter.toMailDTOInfo(mail));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("cannot find person with id "+ personId);
+        }
+
+        return readedEmails;
+    }
+
+    @Override
+    public MailDTOInfo markMailAsReaded(long mailId) throws IllegalArgumentException{
+        Mail mail = null;
+
+        try {
+            mail = mailRepository.findOne(mailId);
+            mail.setReaded(true);
+            mailRepository.save(mail);
+
+            MailDTOInfo mailDTOInfo = DTOConverter.toMailDTOInfo(mail);
+            return mailDTOInfo;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("cannot find mail with Id " +mailId);
+        }
     }
 
     private Set<Person> getAllPersons() {

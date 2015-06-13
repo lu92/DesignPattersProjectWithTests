@@ -27,7 +27,7 @@ public class CategoryController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public Set<CategoryDTOInfo> deleteCategory(@RequestBody SingleArgumentDTO singleArgumentDTO) {
         categoryService.deleteCategory(singleArgumentDTO.getValue());
         return categoryService.getAllCategoryDtoInfos();

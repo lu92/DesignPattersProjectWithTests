@@ -3,7 +3,6 @@ package DesignPatternsProject.entities.productsAndServices;
 
 import DesignPatternsProject.entities.orders.AbstractOrderDetails;
 import org.neo4j.graphdb.Direction;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
