@@ -4,6 +4,8 @@ import DesignPatternsProject.DTO.BaseProductDTOInfo;
 import DesignPatternsProject.DTO.ProductFormDTO;
 import DesignPatternsProject.DTO.ServiceFormDTO;
 import DesignPatternsProject.entities.productsAndServices.BaseProduct;
+import DesignPatternsProject.entities.productsAndServices.Product;
+import DesignPatternsProject.entities.productsAndServices.Service;
 
 import java.util.Set;
 
@@ -13,7 +15,18 @@ import java.util.Set;
 public interface BaseProductService {
     BaseProduct createProduct(ProductFormDTO productFormDTO);
     BaseProduct createService(ServiceFormDTO serviceFormDTO);
+
     void deleteBaseProduct(long id);
+    void deleteAll();
+
+    Set<BaseProduct> getAllBaseProducts();
     Set<BaseProductDTOInfo> getAllBaseProductDTOInfo();
+
+    Set<Product> getAllProducts();
+    Set<Service> getAllServices();
+
+    long getNumberOfBaseProducts();
+    long getNumberOfProducts();
+    long getNumberOfServices();
 
 }

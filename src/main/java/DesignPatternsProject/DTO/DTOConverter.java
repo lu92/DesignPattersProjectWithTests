@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
  */
 public class DTOConverter {
 
-
     private static Format formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     public static Person toPerson(PersonFormDTO personFormDTO) {

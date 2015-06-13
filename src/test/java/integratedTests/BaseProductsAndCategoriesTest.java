@@ -64,7 +64,7 @@ public class BaseProductsAndCategoriesTest {
             System.out.println(baseProduct);
         Assert.assertEquals(2, baseProductRepository.count());
         Assert.assertEquals(1, categoryRepository.count());
-
+        baseProductRepository.deleteAll();
     }
 
 //
@@ -87,6 +87,7 @@ public class BaseProductsAndCategoriesTest {
             System.out.println(baseProduct);
 
 //        Assert.assertEquals(1, categoryRepository.count());
+        baseProductRepository.deleteAll();
     }
 
     @Test @Rollback(true)
@@ -102,6 +103,7 @@ public class BaseProductsAndCategoriesTest {
             System.out.println(category);
 
         Assert.assertEquals(1, categoryRepository.count());
+        baseProductRepository.deleteAll();
     }
 
 }

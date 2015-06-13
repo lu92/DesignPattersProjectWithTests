@@ -45,6 +45,7 @@ public class PersonTest {
         Assert.assertEquals(2, roleRepository.count());
         Assert.assertEquals(6, privilegeRepository.count());
         Assert.assertEquals(1, salaryRepository.count());
+        clearDatabase();
     }
 
     @Test @Rollback(true)
@@ -59,6 +60,7 @@ public class PersonTest {
         Assert.assertEquals(2, roleRepository.count());
         Assert.assertEquals(6, privilegeRepository.count());
         Assert.assertEquals(2, salaryRepository.count());
+        clearDatabase();
     }
 
     private void clearDatabase() {

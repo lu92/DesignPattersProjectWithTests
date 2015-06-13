@@ -53,10 +53,57 @@ public class BaseProductServiceImpl implements BaseProductService {
     }
 
     @Override
+    public void deleteAll() {
+        baseProductRepository.deleteAll();
+    }
+
+    @Override
+    public Set<BaseProduct> getAllBaseProducts() {
+        Set<BaseProduct> allBaseProducts = new HashSet<>();
+        for (BaseProduct baseProduct : baseProductRepository.findAll())
+            allBaseProducts.add(baseProduct);
+        return allBaseProducts;
+    }
+
+    @Override
     public Set<BaseProductDTOInfo> getAllBaseProductDTOInfo() {
         Set<BaseProductDTOInfo> baseProductDTOInfoSet = new HashSet<>();
         for (BaseProduct baseProduct : baseProductRepository.findAll())
             baseProductDTOInfoSet.add(DTOConverter.toBaseProductDTOInfo(baseProduct));
         return baseProductDTOInfoSet;
+    }
+
+    @Override
+    public Set<Product> getAllProducts() {
+        Set<Product> allProducts = new HashSet<>();
+        for (BaseProduct baseProduct : baseProductRepository.findAll())
+            if (baseProduct instanceof Product)
+                allProducts.add((Product) baseProduct);
+
+        return allProducts;
+    }
+
+    @Override
+    public Set<DesignPatternsProject.entities.productsAndServices.Service> getAllServices() {
+        Set<DesignPatternsProject.entities.productsAndServices.Service> allServices = new HashSet<>();
+        for (BaseProduct baseProduct : baseProductRepository.findAll())
+            if (baseProduct instanceof DesignPatternsProject.entities.productsAndServices.Service)
+                allServices.add((DesignPatternsProject.entities.productsAndServices.Service) baseProduct);
+        return allServices;
+    }
+
+    @Override
+    public long getNumberOfBaseProducts() {
+        return baseProductRepository.count();
+    }
+
+    @Override
+    public long getNumberOfProducts() {
+        return getAllProducts().size();
+    }
+
+    @Override
+    public long getNumberOfServices() {
+        return getAllServices().size();
     }
 }
