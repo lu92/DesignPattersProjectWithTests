@@ -94,6 +94,16 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public Set<PersonDTOInfo> getOnlyClients() {
+        Set<PersonDTOInfo> onlyClients = new HashSet<>();
+        for (Person person : personRepository.findAll())
+            if (person instanceof Client)
+                onlyClients.add(DTOConverter.toPersonDTOInfo(person));
+
+        return onlyClients;
+    }
+
+    @Override
     public Set<PersonDTOInfo> getAllPersonDtoInfosWithoutClients() {
         Set<PersonDTOInfo> onlyPersonsWithoutClients = new HashSet<>();
         for (Person person : personRepository.findAll())
@@ -104,7 +114,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public boolean addMail(MailFormDTO mailFormDTO) throws IllegalArgumentException{
+    public MailDTOInfo addMail(MailFormDTO mailFormDTO) throws IllegalArgumentException{
         Person personFrom = null;
         Person personTo = null;
 
@@ -121,11 +131,13 @@ public class PersonServiceImpl implements PersonService {
         }
 
         Mail mail = new Mail(personFrom, personTo, mailFormDTO.getTitle(), mailFormDTO.getMessage(), false);
-        personFrom.addMail(mail);
         personTo.addMail(mail);
-        personRepository.save(personFrom);
+        personFrom.addMail(mail);
+        Person person = personRepository.save(personFrom);
         personRepository.save(personTo);
-        return true;
+
+
+        return DTOConverter.toMailDTOInfo(person.findMail(mailFormDTO.getTitle(), mailFormDTO.getMessage()));
     }
 
     @Override
@@ -136,7 +148,7 @@ public class PersonServiceImpl implements PersonService {
         try {
             person = personRepository.findOne(personId);
             for (Mail mail : person.getMailStorage())
-                if (!mail.isReaded())
+                if (mail.getTo().equals(this) && !mail.isReaded())
                     notReadedEmails.add(DTOConverter.toMailDTOInfo(mail));
         } catch (Exception e) {
             throw new IllegalArgumentException("cannot find person with id "+ personId);
@@ -152,30 +164,35 @@ public class PersonServiceImpl implements PersonService {
         Person person = null;
         try {
             person = personRepository.findOne(personId);
-            for (Mail mail : person.getMailStorage())
-                if (mail.isReaded())
+            for (Mail mail : person.getReadedMails())
                     readedEmails.add(DTOConverter.toMailDTOInfo(mail));
+            return readedEmails;
         } catch (Exception e) {
             throw new IllegalArgumentException("cannot find person with id "+ personId);
         }
 
-        return readedEmails;
     }
 
     @Override
-    public MailDTOInfo markMailAsReaded(long mailId) throws IllegalArgumentException{
+    public MailDTOInfo markMailAsReaded(long personId, long mailId) throws IllegalArgumentException{
         Mail mail = null;
+        Person person = null;
 
         try {
+            person = personRepository.findOne(personId);
             mail = mailRepository.findOne(mailId);
-            mail.setReaded(true);
-            mailRepository.save(mail);
 
+            if (person.getMailStorage().contains(mail) && mail.getTo().equals(person)) {
+                mail.setReaded(true);
+                mail = mailRepository.save(mail);
+            }
             MailDTOInfo mailDTOInfo = DTOConverter.toMailDTOInfo(mail);
             return mailDTOInfo;
+
         } catch (Exception e) {
-            throw new IllegalArgumentException("cannot find mail with Id " +mailId);
+            throw new IllegalArgumentException("cannot find person " + personId);
         }
+
     }
 
     private Set<Person> getAllPersons() {

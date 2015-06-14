@@ -106,6 +106,30 @@ public class Person {
             mailStorage.add(mail);
     }
 
+    public Mail findMail(String title, String message) {
+        for (Mail mail : mailStorage)
+            if (mail.getTitle().equals(title) && mail.getMessage().equals(message))
+                return mail;
+        return null;
+    }
+
+    public Set<Mail> getReadedMails() {
+        Set<Mail> readedMails = new HashSet<>();
+        for (Mail mail : getMailStorage())
+            if (mail.getTo().equals(this) && mail.isReaded() == true)
+                readedMails.add(mail);
+        return readedMails;
+    }
+
+    public Set<Mail> getNotReadedMails() {
+        Set<Mail> notReadedMails = new HashSet<>();
+        for (Mail mail : getMailStorage())
+            if (mail.getTo().equals(this) && !mail.isReaded())
+                notReadedMails.add(mail);
+        return notReadedMails;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {

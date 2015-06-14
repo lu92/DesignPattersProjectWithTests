@@ -15,9 +15,10 @@ public interface PersonService {
     boolean addRoleToPerson(long personId, long roleId) throws IllegalArgumentException;
     Person getPerson(long personId) throws IllegalArgumentException;
     Set<PersonDTOInfo> getAllPersonDtoInfos();
+    Set<PersonDTOInfo> getOnlyClients();
     Set<PersonDTOInfo> getAllPersonDtoInfosWithoutClients();
-    boolean addMail(MailFormDTO mailFormDTO) throws IllegalArgumentException;
+    MailDTOInfo addMail(MailFormDTO mailFormDTO) throws IllegalArgumentException;
     Set<MailDTOInfo> getNotReadedEmails(long personId) throws IllegalArgumentException;
     Set<MailDTOInfo> getReadedMails(long personId) throws IllegalArgumentException;
-    MailDTOInfo markMailAsReaded(long mailId);
+    MailDTOInfo markMailAsReaded(long personId, long mailId);
 }

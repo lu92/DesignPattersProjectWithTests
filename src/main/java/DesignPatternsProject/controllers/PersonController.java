@@ -60,8 +60,8 @@ public class PersonController {
 
     @ResponseBody
     @RequestMapping(value = "/markMailAsReaded", method = RequestMethod.POST)
-    public MailDTOInfo markMailAsReaded(@RequestBody SingleArgumentDTO singleArgumentDTO) {
-        return personService.markMailAsReaded(singleArgumentDTO.getValue());
+    public MailDTOInfo markMailAsReaded(@RequestBody DoubleArgumentDTO doubleArgumentDTO) {
+        return personService.markMailAsReaded(doubleArgumentDTO.getFirstArgument(), doubleArgumentDTO.getSecondArgument());
     }
 
 }
