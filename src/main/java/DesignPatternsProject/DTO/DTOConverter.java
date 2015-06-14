@@ -175,11 +175,6 @@ public class DTOConverter {
         return orderDetailsDTOInfo;
     }
 
-//    public static AbstractOrderDetails toOrderDetails(OrderDetailsFormDTO orderDetailsFormDTO) {
-//        AbstractOrderDetails orderDetails = new OrderDetails(
-//                orderDetailsFormDTO.getDate(),);
-//        return null;
-//    }
 
     public static MailDTOInfo toMailDTOInfo(Mail mail) {
         MailDTOInfo mailDTOInfo = new MailDTOInfo(mail.getId(), mail.getFrom().getEmail(),

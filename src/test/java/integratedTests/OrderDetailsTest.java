@@ -36,7 +36,6 @@ import java.util.Date;
 @Transactional
 public class OrderDetailsTest {
 
-
     @Autowired
     private PersonRepository personRepository;
 
@@ -45,7 +44,6 @@ public class OrderDetailsTest {
 
     @Autowired
     private OrderDetailsRepository orderDetailsRepository;
-
 
     @Autowired
     private CountryRepository countryRepository;
@@ -86,6 +84,5 @@ public class OrderDetailsTest {
         Assert.assertNotNull(orderDetailsDb.getTaxationType());
         Assert.assertNotNull(orderDetailsDb.getTaxation());
     }
-
 
 }

@@ -23,6 +23,12 @@ public class OrderDetailsFormDTO {
         this.clientId = clientId;
     }
 
+    public OrderDetailsFormDTO(String date, Long clientId, TaxationType taxationType) {
+        this.date = date;
+        this.clientId = clientId;
+        this.taxationType = taxationType;
+    }
+
     public OrderDetailsFormDTO(String date, Long clientId, TaxationType taxationType, Set<Long> baseProductSet) {
         this.date = date;
         this.clientId = clientId;

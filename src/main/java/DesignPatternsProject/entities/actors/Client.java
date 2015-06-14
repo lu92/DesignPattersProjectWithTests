@@ -23,7 +23,6 @@ public class Client extends Person {
 
     @Fetch
     @RelatedTo(type = "ORDER_CLIENT", direction = Direction.BOTH)
-//    @Transient
     private Set<AbstractOrderDetails> orderStorage = new HashSet<>();
 
     private String accountNumber;
@@ -33,8 +32,6 @@ public class Client extends Person {
     public Client() {
     }
 
-//    public Client(String username, String password, String email) {
-//    }
 
 
     public Client(String username, String password, String email) {
