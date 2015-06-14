@@ -23,8 +23,10 @@ public class DTOConverter {
         PersonBuilder personBuilder = new PersonBuilder(
                 personFormDTO.getUsername(), personFormDTO.getPassword(),
                 personFormDTO.getEmail(), personFormDTO.getPersonType().toString());
+
         personBuilder.setPersonality(personFormDTO.getName(), personFormDTO.getLastName(),
                 personFormDTO.getBirth(), personFormDTO.getTelephoneNumber());
+
         personBuilder.setAddress(personFormDTO.getCountry(),
                 personFormDTO.getCity(), personFormDTO.getStreet(), personFormDTO.getZipCode());
         return personBuilder.getBuildResult();
@@ -81,6 +83,7 @@ public class DTOConverter {
             if (person instanceof Student)
                 personDTOInfo.setPersonType(PersonType.STUDENT);
 
+//            personDTOInfo.setPersonType(PersonType.WORKER);
             personDTOInfo.setUsername(person.getUsername());
             personDTOInfo.setPassword(person.getPassword());
             personDTOInfo.setEmail(person.getEmail());

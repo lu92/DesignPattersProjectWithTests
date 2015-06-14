@@ -3,6 +3,9 @@ package DesignPatternsProject.resources;
 import DesignPatternsProject.entities.personalData.Privilege;
 import DesignPatternsProject.entities.personalData.Role;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by lucjan on 13.05.15.
  */
@@ -68,5 +71,17 @@ public final class RoleResource {
                 new Privilege("negotiating prices")
         );
         return role;
+    }
+
+
+    public static Set<Role> getAllRoles() {
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(getManagerRole());
+        roleSet.add(getWorkerRole());
+        roleSet.add(getJAVADeveloper());
+        roleSet.add(getDataBaseDeveloper());
+        roleSet.add(getWebDeveloper());
+        roleSet.add(getClientRole());
+        return roleSet;
     }
 }

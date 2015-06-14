@@ -1,5 +1,15 @@
 package DesignPatternsProject;
 
+
+import DesignPatternsProject.entities.actors.*;
+import DesignPatternsProject.entities.actors.Person;
+import DesignPatternsProject.entities.personalData.Role;
+import DesignPatternsProject.repositories.BaseProductRepository;
+import DesignPatternsProject.repositories.CategoryRepository;
+import DesignPatternsProject.repositories.PersonRepository;
+import DesignPatternsProject.repositories.RoleRepository;
+import DesignPatternsProject.resources.PersonResource;
+import DesignPatternsProject.resources.RoleResource;
 import org.neo4j.graphdb.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,14 +19,25 @@ import org.springframework.data.neo4j.core.GraphDatabase;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 
 @SpringBootApplication
 public class Neo4jTestApplication implements CommandLineRunner {
 
+    private Logger logger = Logger.getLogger(String.valueOf(this));
 
     @Autowired
-    SamplePersonRepository personRepository;
+    private PersonRepository personRepository;
+
+    @Autowired
+    private BaseProductRepository baseProductRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     GraphDatabase graphDatabase;
@@ -31,51 +52,24 @@ public class Neo4jTestApplication implements CommandLineRunner {
 
 
     @Override
+    @Transactional
     public void run(String... strings) throws Exception {
-
-
-        Person greg = new Person("Greg");
-        Person roy = new Person("Roy");
-        Person craig = new Person("Craig");
-
-        System.out.println("Before linking up with Neo4j...");
-        for (Person person : new Person[] { greg, roy, craig }) {
-            System.out.println(person);
-        }
 
         Transaction tx = graphDatabase.beginTx();
         try {
-            personRepository.deleteAll();
-            personRepository.save(greg);
-            personRepository.save(roy);
-            personRepository.save(craig);
 
-            greg = personRepository.findByName(greg.name);
-            greg.worksWith(roy);
-            greg.worksWith(craig);
-            personRepository.save(greg);
-
-            roy = personRepository.findByName(roy.name);
-            roy.worksWith(craig);
-            // We already know that roy works with greg
-            personRepository.save(roy);
-
-            // We already know craig works with roy and greg
-
-            System.out.println("Lookup each person by name...");
-            for (String name : new String[] { greg.name, roy.name, craig.name }) {
-                System.out.println(personRepository.findByName(name));
+            for (Role role : RoleResource.getAllRoles()) {
+                Role  roleDB = roleRepository.save(role);
+                logger.info("new role " + roleDB);
             }
 
-            System.out.println("Looking up who works with Greg...");
-            for (Person person : personRepository.findByTeammatesName("Greg")) {
-                System.out.println(person.name + " works with Greg.");
+            for (DesignPatternsProject.entities.actors.Person person : PersonResource.getAllPersonsFromResources()) {
+                Person personDB = personRepository.save(person);
+                logger.info("new person " + personDB);
             }
 
-            for (Person person : personRepository.findAll())
-                person.showDetails();
 
-            tx.failure();
+            tx.success();
         } finally {
             tx.close();
         }

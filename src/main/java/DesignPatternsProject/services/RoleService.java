@@ -1,8 +1,11 @@
 package DesignPatternsProject.services;
 
 
+import DesignPatternsProject.DTO.DTOConverter;
+import DesignPatternsProject.DTO.RoleDTOInfo;
 import DesignPatternsProject.entities.personalData.Role;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,4 +17,6 @@ public interface RoleService  {
     Role getRole(long roleId) throws IllegalArgumentException;
     Set<Role> getAllRoles();
     boolean addPrivilegeToRole(long roleId, long privilegeId) throws IllegalArgumentException;
+    public Set<RoleDTOInfo> getAllRolesInfos();
+
 }

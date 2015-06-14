@@ -12,6 +12,7 @@ public interface PersonService {
     Person loginToSystem(LoginDataDTO loginDataDTO) throws IllegalArgumentException;
     Person addPerson(PersonFormDTO personFormDTO);
     void deletePerson(long personId);
+    void deleteAll();
     boolean addRoleToPerson(long personId, long roleId) throws IllegalArgumentException;
     Person getPerson(long personId) throws IllegalArgumentException;
     Set<PersonDTOInfo> getAllPersonDtoInfos();
@@ -21,4 +22,5 @@ public interface PersonService {
     Set<MailDTOInfo> getNotReadedEmails(long personId) throws IllegalArgumentException;
     Set<MailDTOInfo> getReadedMails(long personId) throws IllegalArgumentException;
     MailDTOInfo markMailAsReaded(long personId, long mailId);
+    long getNumberOfPersons();
 }

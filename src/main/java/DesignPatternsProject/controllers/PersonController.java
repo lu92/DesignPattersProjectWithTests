@@ -20,6 +20,13 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
+
+    @ResponseBody
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public PersonDTOInfo login(@RequestBody LoginDataDTO loginDataDTO) {
+        return null;
+    }
+
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Person createPerson(@RequestBody PersonFormDTO personFormDTO) {

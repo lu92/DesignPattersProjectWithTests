@@ -4,6 +4,7 @@ package DesignPatternsProject.resources;
 import DesignPatternsProject.builders.PersonBuilder;
 import DesignPatternsProject.entities.actors.Manager;
 import DesignPatternsProject.entities.actors.Person;
+import DesignPatternsProject.entities.actors.Student;
 import DesignPatternsProject.entities.actors.Worker;
 import DesignPatternsProject.entities.personalData.EmploymentContractType;
 import DesignPatternsProject.entities.personalData.Salary;
@@ -82,7 +83,7 @@ public class PersonResource {
     }
 
     public static Person getDatabaseDeveloperAdrianCiecholewski() {
-        PersonBuilder personBuilder = new PersonBuilder("Adrian_Ciecholewski", "Adrian_Ciecholewski", "adrian.ciecholewski@gmail.com", Worker.class);
+        PersonBuilder personBuilder = new PersonBuilder("Adrian_Ciecholewski", "Adrian_Ciecholewski", "adrian.ciecholewski@gmail.com", Student.class);
         personBuilder.setAddress("Poland", "Warsaw", "street 6", "30-330 Warsaw");
         personBuilder.setPersonality("Adrian", "Ciecholewski", "20/04/1970", "123456789");
         personBuilder.addRoles(
@@ -165,6 +166,10 @@ public class PersonResource {
         personSet.add(PersonResource.getWebDeveloperMateuszStepala());
         personSet.add(PersonResource.getWebDeveloperPrzemekRoman());
         return personSet;
+    }
+
+    public static long getNumberOfPersons() {
+        return getAllPersonsFromResources().size();
     }
 
 }

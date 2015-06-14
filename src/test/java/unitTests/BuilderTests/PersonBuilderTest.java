@@ -1,11 +1,14 @@
 package unitTests.BuilderTests;
 
+import DesignPatternsProject.DTO.DTOConverter;
+import DesignPatternsProject.DTO.PersonFormDTO;
 import DesignPatternsProject.builders.AbstractPersonBuilder;
 import DesignPatternsProject.builders.PersonBuilder;
 import DesignPatternsProject.entities.actors.*;
 import DesignPatternsProject.entities.personalData.Address;
 import DesignPatternsProject.entities.personalData.Personality;
 import DesignPatternsProject.entities.personalData.Role;
+import DesignPatternsProject.resources.PersonResource;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -36,6 +39,20 @@ public class PersonBuilderTest {
         Assert.assertNotNull(personBuilder3);
         Assert.assertNotNull(personBuilder4);
     }
+
+    @Test
+    public void createManager() {
+        Person manager = PersonResource.getManagerJanKowalski();
+        Assert.assertNotNull(manager);
+        Assert.assertTrue(manager instanceof Manager);
+
+        PersonFormDTO personFormDTO = DTOConverter.toPersonFormDTO(manager);
+        Assert.assertNotNull(personFormDTO);
+        Assert.assertEquals(PersonType.MANAGER , personFormDTO.getPersonType());
+    }
+
+
+
 
 
     @Test(expected = IllegalArgumentException.class)

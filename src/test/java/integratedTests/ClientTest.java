@@ -27,11 +27,11 @@ public class ClientTest {
     @Test @Rollback(true)
     public void saveClient() {
 
-//        clientRepository.deleteAll();
-//        System.out.println(ClientResource.getAnnaNowak());
-//
-//        clientRepository.save(ClientResource.getAnnaNowak());
-//        Assert.assertEquals(1, clientRepository.count());
+        clientRepository.deleteAll();
+        System.out.println(ClientResource.getAnnaNowak());
+
+        clientRepository.save(ClientResource.getAnnaNowak());
+        Assert.assertEquals(1, clientRepository.count());
     }
 
 }

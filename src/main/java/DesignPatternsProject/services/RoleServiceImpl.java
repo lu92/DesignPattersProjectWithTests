@@ -1,6 +1,8 @@
 package DesignPatternsProject.services;
 
 
+import DesignPatternsProject.DTO.DTOConverter;
+import DesignPatternsProject.DTO.RoleDTOInfo;
 import DesignPatternsProject.entities.personalData.Privilege;
 import DesignPatternsProject.entities.personalData.Role;
 import DesignPatternsProject.repositories.PrivilegeRepository;
@@ -68,5 +70,13 @@ public class RoleServiceImpl implements RoleService {
         role.addPrivileges(privilege);
         roleRepository.save(role);
         return true;
+    }
+
+    @Override
+    public Set<RoleDTOInfo> getAllRolesInfos() {
+        Set<RoleDTOInfo> roleDTOInfoSet = new HashSet<>();
+        for (Role role : roleRepository.findAll())
+            roleDTOInfoSet.add(DTOConverter.toRoleDTOInfo(role));
+        return roleDTOInfoSet;
     }
 }

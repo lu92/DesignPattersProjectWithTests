@@ -22,8 +22,9 @@ public class CategoryController {
 
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Category createCategory(@RequestBody CategoryFormDTO categoryFormDTO) {
-        return categoryService.createCategory(categoryFormDTO);
+    public Set<CategoryDTOInfo> createCategory(@RequestBody CategoryFormDTO categoryFormDTO) {
+        categoryService.createCategory(categoryFormDTO);
+        return categoryService.getAllCategoryDtoInfos();
     }
 
     @ResponseBody

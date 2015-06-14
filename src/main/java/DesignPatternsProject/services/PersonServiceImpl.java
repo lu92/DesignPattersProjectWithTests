@@ -53,6 +53,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public void deleteAll() {
+        personRepository.deleteAll();
+    }
+
+    @Override
     public boolean addRoleToPerson(long personId, long roleId) throws IllegalArgumentException{
         Person person = null;
         Role role = null;
@@ -193,6 +198,11 @@ public class PersonServiceImpl implements PersonService {
             throw new IllegalArgumentException("cannot find person " + personId);
         }
 
+    }
+
+    @Override
+    public long getNumberOfPersons() {
+        return personRepository.count();
     }
 
     private Set<Person> getAllPersons() {
