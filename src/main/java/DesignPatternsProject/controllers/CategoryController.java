@@ -33,6 +33,7 @@ public class CategoryController {
         return categoryService.getAllCategoryDtoInfos();
     }
 
+
     @ResponseBody
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public Set<CategoryDTOInfo> getAllCategories() {
