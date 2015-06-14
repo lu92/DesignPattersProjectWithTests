@@ -14,4 +14,6 @@ public interface CategoryService {
     void deleteCategory(long id);
     Set<CategoryDTOInfo> getAllCategoryDtoInfos();
     boolean addBaseProductToCategory(long baseProductId, long categoryId) throws IllegalArgumentException;
+    long getNumberOfCategories();
+    Category getCategory(long id);
 }

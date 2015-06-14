@@ -54,7 +54,7 @@ public class OrderDetailsTest {
     public void saveOrder() {
         personRepository.deleteAll();
         Country Poland = new Country("Poland", Currency.PLN, 1, 0);
-////
+
         countryRepository.save(Poland);
         Assert.assertEquals(1, countryRepository.count());
         TaxationStrategy poland08 = new PolishTaxation08(Poland);
@@ -65,7 +65,7 @@ public class OrderDetailsTest {
 
         AbstractOrderDetails orderDetails = new OrderDetails("12/03/2015", poland08, ClientResource.getPiotrKraus());
         Assert.assertNotNull(orderDetails);
-////
+
         orderDetails.addAnyBaseProduct(
                 new Product("komputer", 2000),
                 new Product("laptop", 3000),
@@ -78,6 +78,13 @@ public class OrderDetailsTest {
 
         Assert.assertEquals(4, orderDetailsRepository.findOne(orderId).getOrder().size());
         Assert.assertEquals(new Date("12/03/2015"), orderDetailsRepository.findOne(orderId).getDate());
+        Assert.assertNotNull(orderDetailsRepository.findOne(orderId).getClient());
+        Assert.assertEquals(ClientResource.getPiotrKraus().getAddress(), orderDetailsRepository.findOne(orderId).getAddress());
+
+        AbstractOrderDetails orderDetailsDb = orderDetailsRepository.findOne(orderId);
+        orderDetailsDb.loadTaxation();
+        Assert.assertNotNull(orderDetailsDb.getTaxationType());
+        Assert.assertNotNull(orderDetailsDb.getTaxation());
     }
 
 

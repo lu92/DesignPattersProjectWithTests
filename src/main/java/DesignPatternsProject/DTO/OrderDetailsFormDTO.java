@@ -1,5 +1,7 @@
 package DesignPatternsProject.DTO;
 
+import DesignPatternsProject.strategies.taxations.TaxationType;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +11,9 @@ import java.util.Set;
 public class OrderDetailsFormDTO {
     private String date;
     private Long clientId;
-    private Set<ProductFormDTO> baseProductFormDTOSet = new HashSet<>();
+    private TaxationType taxationType;
+    private Set<Long> baseProductSet = new HashSet<>();
+
 
     public OrderDetailsFormDTO() {
     }
@@ -19,11 +23,18 @@ public class OrderDetailsFormDTO {
         this.clientId = clientId;
     }
 
-    public void addBaseProductFormDTO(ProductFormDTO... baseProductFormDTOs) {
-        for (ProductFormDTO baseProductFormDTO : baseProductFormDTOs)
-            baseProductFormDTOSet.add(baseProductFormDTO);
-
+    public OrderDetailsFormDTO(String date, Long clientId, TaxationType taxationType, Set<Long> baseProductSet) {
+        this.date = date;
+        this.clientId = clientId;
+        this.taxationType = taxationType;
+        this.baseProductSet = baseProductSet;
     }
+
+    public void addBaseProduct(Long ... baseProductsId) {
+        for (Long id : baseProductsId)
+            baseProductSet.add(id);
+    }
+
 
     public String getDate() {
         return date;
@@ -41,11 +52,19 @@ public class OrderDetailsFormDTO {
         this.clientId = clientId;
     }
 
-    public Set<ProductFormDTO> getBaseProductFormDTOSet() {
-        return baseProductFormDTOSet;
+    public Set<Long> getBaseProductSet() {
+        return baseProductSet;
     }
 
-    public void setBaseProductFormDTOSet(Set<ProductFormDTO> baseProductFormDTOSet) {
-        this.baseProductFormDTOSet = baseProductFormDTOSet;
+    public void setBaseProductSet(Set<Long> baseProductSet) {
+        this.baseProductSet = baseProductSet;
+    }
+
+    public TaxationType getTaxationType() {
+        return taxationType;
+    }
+
+    public void setTaxationType(TaxationType taxationType) {
+        this.taxationType = taxationType;
     }
 }

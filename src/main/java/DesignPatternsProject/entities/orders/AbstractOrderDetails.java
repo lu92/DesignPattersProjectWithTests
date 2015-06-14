@@ -6,8 +6,9 @@ import DesignPatternsProject.entities.productsAndServices.BaseProduct;
 import DesignPatternsProject.entities.productsAndServices.Category;
 import DesignPatternsProject.entities.productsAndServices.Product;
 import DesignPatternsProject.entities.productsAndServices.Service;
+import DesignPatternsProject.resources.CountryResources;
 import DesignPatternsProject.strategies.Country;
-import DesignPatternsProject.strategies.taxations.TaxationStrategy;
+import DesignPatternsProject.strategies.taxations.*;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.neo4j.annotation.Fetch;
@@ -22,6 +23,7 @@ import java.util.*;
  */
 @NodeEntity
 public abstract class AbstractOrderDetails {
+
     @GraphId
     protected Long order_id;
     protected Date date;
@@ -29,16 +31,57 @@ public abstract class AbstractOrderDetails {
     @Transient
     protected TaxationStrategy taxation;
 
-//    @Fetch
-//    @RelatedTo(type = "ORDER_CLIENT", direction = Direction.BOTH)
-    @Transient
+    protected TaxationType taxationType;    // bo to jest staly obiekt
+
+
+    @Fetch
+    @RelatedTo(type = "ORDER_CLIENT", direction = Direction.BOTH)
     protected Client client;
 
     @Fetch @RelatedTo(type = "ORDER_BASEPRODUCT", direction = Direction.BOTH)
-//    @Transient
     protected Set<BaseProduct> order = new HashSet<>();
 
     public AbstractOrderDetails() {
+        /*
+        switch (taxationType) {
+            case PolishTaxation08:
+                taxation = new PolishTaxation08(CountryResources.getPoland());
+                break;
+
+            case PolishTaxation15:
+                taxation = new PolishTaxation15(CountryResources.getPoland());
+                break;
+
+            case PolishTaxation23:
+                taxation = new PolishTaxation23(CountryResources.getPoland());
+                break;
+
+            case UsaTaxation:
+                taxation = new UsaTaxation(CountryResources.getUnitedStates());
+                break;
+        }
+        */
+    }
+
+
+    public void loadTaxation() {
+        switch (taxationType) {
+            case PolishTaxation08:
+                taxation = new PolishTaxation08(CountryResources.getPoland());
+                break;
+
+            case PolishTaxation15:
+                taxation = new PolishTaxation15(CountryResources.getPoland());
+                break;
+
+            case PolishTaxation23:
+                taxation = new PolishTaxation23(CountryResources.getPoland());
+                break;
+
+            case UsaTaxation:
+                taxation = new UsaTaxation(CountryResources.getUnitedStates());
+                break;
+        }
     }
 
     public AbstractOrderDetails(String date, TaxationStrategy taxationStrategy, Client client) {
@@ -49,6 +92,16 @@ public abstract class AbstractOrderDetails {
         else {
             this.date = new Date(date);
             this.taxation = taxationStrategy;
+
+            if (taxationStrategy instanceof PolishTaxation08)
+                taxationType = TaxationType.PolishTaxation08;
+            else if (taxationStrategy instanceof PolishTaxation15)
+                taxationType = TaxationType.PolishTaxation15;
+            else if (taxationStrategy instanceof PolishTaxation23)
+                taxationType = TaxationType.PolishTaxation23;
+            else if (taxationStrategy instanceof UsaTaxation)
+                taxationType = TaxationType.UsaTaxation;
+
             this.client = client;
             taxationStrategy.setOrderDetails(this);
         }
@@ -84,8 +137,21 @@ public abstract class AbstractOrderDetails {
         this.client = client;
     }
 
+
+    public void setOrder_id(Long order_id) {
+        this.order_id = order_id;
+    }
+
     public Date getDate() {
         return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setOrder(Set<BaseProduct> order) {
+        this.order = order;
     }
 
     public Set<BaseProduct> getOrder() {
@@ -166,5 +232,13 @@ public abstract class AbstractOrderDetails {
 
     public double getPriceBySelectedTaxaction() {
         return 0;
+    }
+
+    public TaxationType getTaxationType() {
+        return taxationType;
+    }
+
+    public void setTaxationType(TaxationType taxationType) {
+        this.taxationType = taxationType;
     }
 }

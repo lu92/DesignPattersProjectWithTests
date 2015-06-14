@@ -1,6 +1,8 @@
 package DesignPatternsProject.services;
 
 import DesignPatternsProject.DTO.OrderDetailsDTOInfo;
+import DesignPatternsProject.DTO.OrderDetailsFormDTO;
+import DesignPatternsProject.entities.orders.AbstractOrderDetails;
 
 import java.util.Set;
 
@@ -9,7 +11,7 @@ import java.util.Set;
  */
 public interface OrderDetailsService {
 
-    OrderDetailsDTOInfo createNewOrderDetails();
+    OrderDetailsDTOInfo createNewOrderDetails(OrderDetailsFormDTO orderDetailsFormDTO);
 
     boolean addBaseProductToOrderDetails(long orderId, long baseProductId);
     void deleteBaseProductFromOrderDetails(long orderId, long baseProductId);
@@ -18,4 +20,6 @@ public interface OrderDetailsService {
 
     Set<OrderDetailsDTOInfo> getAllOrdersForSelectedClient(long clientId);
     OrderDetailsDTOInfo getOrderDetails(long id);
+    AbstractOrderDetails toOrderDetails(OrderDetailsFormDTO orderDetailsFormDTO) throws IllegalArgumentException;
+
 }

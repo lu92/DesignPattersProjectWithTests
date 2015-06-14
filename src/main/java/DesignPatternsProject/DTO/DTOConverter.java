@@ -8,6 +8,7 @@ import DesignPatternsProject.entities.orders.OrderDetails;
 import DesignPatternsProject.entities.personalData.Privilege;
 import DesignPatternsProject.entities.personalData.Role;
 import DesignPatternsProject.entities.productsAndServices.*;
+import DesignPatternsProject.strategies.discounts.DiscountHandler;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -174,10 +175,11 @@ public class DTOConverter {
         return orderDetailsDTOInfo;
     }
 
-    public static AbstractOrderDetails toOrderDetails(OrderDetailsFormDTO orderDetailsFormDTO) {
-        AbstractOrderDetails orderDetails = new OrderDetails();
-        return null;
-    }
+//    public static AbstractOrderDetails toOrderDetails(OrderDetailsFormDTO orderDetailsFormDTO) {
+//        AbstractOrderDetails orderDetails = new OrderDetails(
+//                orderDetailsFormDTO.getDate(),);
+//        return null;
+//    }
 
     public static MailDTOInfo toMailDTOInfo(Mail mail) {
         MailDTOInfo mailDTOInfo = new MailDTOInfo(mail.getId(), mail.getFrom().getEmail(),
@@ -185,4 +187,12 @@ public class DTOConverter {
         return mailDTOInfo;
     }
 
+
+    public static DiscountNotificationDTOInfo toDiscountNotificationDTOInfo(DiscountHandler.DiscountNotification discountNotification) {
+        DiscountNotificationDTOInfo discountNotificationDTOInfo = new DiscountNotificationDTOInfo(
+                discountNotification.isGrantedRebate(), discountNotification.getRebate(),
+                discountNotification.isGrantedFreeConsulting(), discountNotification.isGrantedRightLoyalty());
+
+        return discountNotificationDTOInfo;
+    }
 }

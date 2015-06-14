@@ -66,4 +66,14 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.save(category);
         return true;
     }
+
+    @Override
+    public long getNumberOfCategories() {
+        return categoryRepository.count();
+    }
+
+    @Override
+    public Category getCategory(long id) {
+        return categoryRepository.findOne(id);
+    }
 }

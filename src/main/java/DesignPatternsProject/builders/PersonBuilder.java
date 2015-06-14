@@ -53,7 +53,7 @@ public class PersonBuilder implements AbstractPersonBuilder{
         int n = 0;
 
         for (int i=0; i<properTypeVales.length; i++) {
-            System.out.println(type + " <-> " + properTypeVales[i].toUpperCase());
+//            System.out.println(type + " <-> " + properTypeVales[i].toUpperCase());
             if (properTypeVales[i].equalsIgnoreCase(type)) {
                 preparePersonFromClassType(username, password, email, PersonsTypes[i]);
             }
