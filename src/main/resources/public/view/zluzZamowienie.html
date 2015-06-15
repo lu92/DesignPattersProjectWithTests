@@ -1,0 +1,115 @@
+<div ng-controller="zluzZamowienieCtrl">
+    <div class="well">
+        <h2 class="text text-danger text-center">
+            {{StronaDoSkladaniaZamowien}}
+        </h2>
+    </div>
+    <!--kategorie-->
+    <div class="col-sm-3">
+        <!--Ilosc w koszyku {{ilosc_w_koszyku()}}-->
+        <div>
+            <h4 class="text-center">
+                koszyk
+            </h4>
+        </div>
+        <ul>
+            <li ng-repeat="itme in zamowienie">
+                {{itme.name}}
+            </li>
+        </ul>
+
+    </div>
+    <div ng-show = 'czyPokazac(0)'>
+    <div class="col-sm-6">
+        <div class="well">
+            <h3 class="text text-center text-danger">
+                Produkty
+            </h3>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nazwa</th>
+                <th>Cena Netto</th>
+                <th>Kategoria</th>
+                <th>KUP</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="item in AllProducts">
+                <div ng-show="{{item.showButton}}">
+                    <td>{{item.baseProductId}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.netto}}</td>
+                    <td>{{item.categoryName}}</td>
+                    <td>
+                        <button ng-click="dodajProdukt(item)">
+                            KUP
+                        </button>
+                    </td>
+                </div>
+
+            </tr>
+        </table>
+        <button ng-click = 'dalej()'>
+            dalej
+        </button>
+    </div>
+
+    </div>
+    <div ng-show = 'czyPokazac(1)'>
+        <!--<div class="col-sm-3"></div>-->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3 class="text text-center text-danger">
+                    Produkty
+                </h3>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nazwa</th>
+                    <th>Cena Netto</th>
+                    <th>Kategoria</th>
+
+                </tr>
+                </thead>
+                <tr ng-repeat="item in zamowienie">
+                    <div ng-show="{{item.showButton}}">
+                        <td>{{item.baseProductId}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.netto}}</td>
+                        <td>{{item.categoryName}}</td>
+                    </div>
+
+                </tr>
+            </table>
+            <div>
+                <div>
+                    <h3 class="text-center">Opodatkowanie</h3>
+                </div>
+                <form class="form-group">
+                        <select ng-model="Dane.typPodatku" class="form-control" type="text">
+                            <option value="PolishTaxation08">PolishTaxation08</option>
+                            <option value="PolishTaxation15">PolishTaxation15</option>
+                            <option value="PolishTaxation23">PolishTaxation23</option>
+                            <option value="UsaTaxation">UsaTaxation</option>
+
+                        </select>
+                    <button ng-click="obliczCene(Dane.typPodatku)">
+                        obliczCene
+                    </button>
+                </form>
+                <div>
+                    CENA : {{cena_za_podatek}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-3">
+
+    </div>
+
+</div>

@@ -19,14 +19,14 @@ public class ClientController {
 
     @ResponseBody
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Person createPerson(@RequestBody PersonFormDTO personFormDTO) {
-        return personService.addPerson(personFormDTO);
+    public Person createPerson(@RequestBody ClientFormDTO clientFormDTO) {
+        return personService.addClient(clientFormDTO);
     }
 
     @ResponseBody
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public Set<PersonDTOInfo> getAllPersons() {
-        return personService.getAllPersonDtoInfos();
+        return personService.getOnlyClients();
     }
 
     @ResponseBody

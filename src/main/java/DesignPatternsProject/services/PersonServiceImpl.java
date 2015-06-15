@@ -4,6 +4,7 @@ import DesignPatternsProject.DTO.*;
 import DesignPatternsProject.entities.Comunication.Mail;
 import DesignPatternsProject.entities.actors.Client;
 import DesignPatternsProject.entities.actors.Person;
+import DesignPatternsProject.entities.actors.PersonType;
 import DesignPatternsProject.entities.personalData.Role;
 import DesignPatternsProject.repositories.MailRepository;
 import DesignPatternsProject.repositories.PersonRepository;
@@ -45,6 +46,11 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person addPerson(PersonFormDTO personFormDTO) {
         return personRepository.save(DTOConverter.toPerson(personFormDTO));
+    }
+
+    @Override
+    public Client addClient(ClientFormDTO clientFormDTO) {
+        return personRepository.save(DTOConverter.toClient(clientFormDTO));
     }
 
     @Override
@@ -102,7 +108,7 @@ public class PersonServiceImpl implements PersonService {
     public Set<PersonDTOInfo> getOnlyClients() {
         Set<PersonDTOInfo> onlyClients = new HashSet<>();
         for (Person person : personRepository.findAll())
-            if (person instanceof Client)
+            if (person.getPersonType().equals(PersonType.CLIENT))
                 onlyClients.add(DTOConverter.toPersonDTOInfo(person));
 
         return onlyClients;
@@ -112,7 +118,7 @@ public class PersonServiceImpl implements PersonService {
     public Set<PersonDTOInfo> getAllPersonDtoInfosWithoutClients() {
         Set<PersonDTOInfo> onlyPersonsWithoutClients = new HashSet<>();
         for (Person person : personRepository.findAll())
-            if (person instanceof Client == false)
+            if (!person.getPersonType().equals(PersonType.CLIENT))
                 onlyPersonsWithoutClients.add(DTOConverter.toPersonDTOInfo(person));
 
         return onlyPersonsWithoutClients;

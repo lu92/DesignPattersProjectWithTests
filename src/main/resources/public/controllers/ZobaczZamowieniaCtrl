@@ -1,0 +1,3 @@
+app.controller('zobaczZamowieniaCtrl', function ($scope,$http) {
+    $scope.ZObaczZamowienia = "Zamowienia "
+})

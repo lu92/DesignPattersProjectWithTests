@@ -1,6 +1,7 @@
 package DesignPatternsProject.services;
 
 import DesignPatternsProject.DTO.*;
+import DesignPatternsProject.entities.actors.Client;
 import DesignPatternsProject.entities.actors.Person;
 
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.Set;
 public interface PersonService {
     Person loginToSystem(LoginDataDTO loginDataDTO) throws IllegalArgumentException;
     Person addPerson(PersonFormDTO personFormDTO);
+    Client addClient(ClientFormDTO clientFormDTO);
     void deletePerson(long personId);
     void deleteAll();
     boolean addRoleToPerson(long personId, long roleId) throws IllegalArgumentException;

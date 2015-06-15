@@ -1,0 +1,91 @@
+<div ng-controller="dodajKlientaCtrl">
+    <div class="well">
+        <h2 class="text text-danger text-center">
+            {{dodajKlientaName}}
+        </h2>
+    </div>
+
+    <div class="col-sm-4">
+        <!-- lewa kolumna-->
+
+        {{wejscie}}
+    </div>
+    <div class="col-sm-4">
+        <form class="form-group">
+            <div class="well">
+                <h3 class="text text-center text-success">Dane Uzytkownika</h3>
+            </div>
+
+            <div class="form-group">
+                <label>Name</label>
+                <input class="form-control" ng-model="newPerson.name">
+            </div>
+            <div class="form-group">
+                <label>LastName</label>
+                <input type="text" class="form-control" ng-model="newPerson.lastName">
+            </div>
+            <div class="form-group">
+                <label>birth</label>
+                <input type="text" class="form-control" ng-model="newPerson.birth">
+            </div>
+            <div class="form-group">
+                <label>telephonNumber</label>
+                <input type="text" class="form-control" ng-model="newPerson.telephoneNumber">
+            </div>
+
+            <div class="form-group">
+                <label>country</label>
+                <input type="text" class="form-control" ng-model="newPerson.country">
+            </div>
+
+            <div class="form-group">
+                <label>city</label>
+                <input type="text" class="form-control" ng-model="newPerson.city">
+            </div>
+            <div class="form-group">
+                <label>street</label>
+                <input type="text" class="form-control" ng-model="newPerson.street">
+            </div>
+
+            <div class="form-group">
+                <label>zipCode</label>
+                <input type="text" class="form-control" ng-model="newPerson.zipCode">
+            </div>
+
+            <div class="form-group">
+                <label>email</label>
+                <input type="text" class="form-control" ng-model="newPerson.email">
+            </div>
+
+            <div class="form-group">
+                <label>userName</label>
+                <input type="text" class="form-control" ng-model="newPerson.username">
+            </div>
+
+            <div class="form-group">
+                <label>password</label>
+                <input type="text" class="form-control" ng-model="newPerson.password">
+            </div>
+
+            <div class="form-group">
+                <label>Account Number</label>
+                <input type="text" class="form-control" ng-model="newPerson.accontNumber">
+            </div>
+
+            <div class="form-group">
+                <label>PIN</label>
+                <input type="text" class="form-control" ng-model="newPerson.PIN">
+            </div>
+
+            <br>
+            <div>
+                <button class="button btn-success" ng-click="dodajKlientaa(newPerson)">
+                    dodaj
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+</div>

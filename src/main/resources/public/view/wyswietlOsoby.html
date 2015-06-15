@@ -1,0 +1,34 @@
+<div ng-controller="dodajNowaUslugeCtrl">
+    <div class="well">
+        <h2 class="text text-danger text-center">
+            {{dodajNowaUslugetext}}
+        </h2>
+    </div>
+
+    <div class="col-sm-2">
+
+    </div>
+    <div class="col-sm-8">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>Usun</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="item in AllWorkers">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.lastName}}</td>
+                <td>
+                    <button ng-click="usunPracownika(item.id)">
+                        Usun
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-2"> </div>
+</div>

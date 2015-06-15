@@ -6,8 +6,10 @@ package DesignPatternsProject.DTO;
 public class BaseProductDTOInfo {
     private Long baseProductId;
     private String name;
+    private double netto;
     private double brutto;
     private String categoryName;
+    private boolean showButton = true;
 
     public BaseProductDTOInfo() {
     }
@@ -50,5 +52,34 @@ public class BaseProductDTOInfo {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+
+    public double getNetto() {
+        return netto;
+    }
+
+    public void setNetto(double netto) {
+        this.netto = netto;
+    }
+
+    public boolean isShowButton() {
+        return showButton;
+    }
+
+    public void setShowButton(boolean showButton) {
+        this.showButton = showButton;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseProductDTOInfo{" +
+                "baseProductId=" + baseProductId +
+                ", name='" + name + '\'' +
+                ", netto=" + netto +
+                ", brutto=" + brutto +
+                ", categoryName='" + categoryName + '\'' +
+                ", showButton=" + showButton +
+                '}';
     }
 }

@@ -30,7 +30,18 @@ public class PersonResource {
     }
 
     public static Person getManagerJanKowalski() {
-        PersonBuilder personBuilder = new PersonBuilder("Jan_Kowalski", "Jan_Kowalski", "jan.kowalski@gmail.com", Manager.class);
+        PersonBuilder personBuilder = new PersonBuilder("Jan_Kowal", "Jan_Kowalski", "jan.kowalski@gmail.com", Manager.class);
+        personBuilder.setAddress("Poland", "Warsaw", "street 2", "30-330 Warsaw");
+        personBuilder.setPersonality("Jan", "Kowalski", "20/04/1970", "123456789");
+        personBuilder.addRoles(
+                RoleResource.getManagerRole(),
+                RoleResource.getWorkerRole());
+        personBuilder.setSalary(new Salary(EmploymentContractType.REGULAR_EMPLOYMENT, 110000));
+        return personBuilder.getBuildResult();
+    }
+
+    public static Person getManagerJanKowalskiAdmin() {
+        PersonBuilder personBuilder = new PersonBuilder("admin", "admin", "jan.kowalski@gmail.com", Manager.class);
         personBuilder.setAddress("Poland", "Warsaw", "street 2", "30-330 Warsaw");
         personBuilder.setPersonality("Jan", "Kowalski", "20/04/1970", "123456789");
         personBuilder.addRoles(
@@ -165,6 +176,7 @@ public class PersonResource {
         personSet.add(PersonResource.getWebDeveloperDominikNocon());
         personSet.add(PersonResource.getWebDeveloperMateuszStepala());
         personSet.add(PersonResource.getWebDeveloperPrzemekRoman());
+        personSet.add(PersonResource.getManagerJanKowalskiAdmin());
         return personSet;
     }
 

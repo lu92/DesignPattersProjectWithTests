@@ -2,6 +2,8 @@ package DesignPatternsProject.resources;
 
 import DesignPatternsProject.builders.PersonBuilder;
 import DesignPatternsProject.entities.actors.Client;
+import DesignPatternsProject.entities.actors.Person;
+import DesignPatternsProject.entities.actors.PersonType;
 
 /**
  * Created by lucjan on 05.06.15.
@@ -21,6 +23,8 @@ public class ClientResource {
         personBuilder.setAddress("Poland", "Warsaw", "Adama Mickiewicza 23/4", "30-330 Warsaw");
         personBuilder.setPersonality("Piotr", "Kraus", "20/04/1970", "123456789");
         personBuilder.addRoles(RoleResource.getClientRole());
-        return (Client) personBuilder.getBuildResult();
+        Person person = personBuilder.getBuildResult();
+        person.setPersonType(PersonType.CLIENT);
+        return (Client) person;
     }
 }

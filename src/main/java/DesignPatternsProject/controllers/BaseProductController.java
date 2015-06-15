@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * Created by lucjan on 08.06.15.
@@ -18,6 +19,8 @@ public class BaseProductController {
 
     @Autowired
     private BaseProductService baseProductService;
+
+    private Logger logger = Logger.getLogger(String.valueOf(this));
 
     @ResponseBody
     @RequestMapping(value = "/createProduct", method = RequestMethod.POST)
@@ -46,6 +49,12 @@ public class BaseProductController {
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public Set<BaseProductDTOInfo> getAllBaseProducts() {
         return baseProductService.getAllBaseProductDTOInfo();
+    }
+    @RequestMapping(value = "/obliczPodatek",method = RequestMethod.POST)
+    public Double obliczPodatek(@RequestBody PodatkiDTO podatkiDTO){
+        logger.info("typ podatku"+String.valueOf(podatkiDTO.getTaxationType()));
+        logger.info("wielkosc zamuwiaenia "+ podatkiDTO.getProductDTOInfos().size());
+        return Double.valueOf(2);
     }
 
 }

@@ -2,8 +2,10 @@ package integratedTests.ServiceTests;
 
 import DesignPatternsProject.DTO.CategoryFormDTO;
 import DesignPatternsProject.Neo4jTestApplication;
+import DesignPatternsProject.repositories.CategoryRepository;
 import DesignPatternsProject.services.CategoryService;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,13 @@ public class CategoryServiceTest {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Before
+    public void clear() {
+        categoryRepository.deleteAll();
+    }
 
     @Test @Rollback(value = true)
     public void createCategoryTest() {

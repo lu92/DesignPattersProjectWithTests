@@ -75,16 +75,7 @@ public class DTOConverter {
         PersonDTOInfo personDTOInfo = new PersonDTOInfo();
         if (person != null) {
             personDTOInfo.setId(person.getId());
-            if (person instanceof Manager)
-                personDTOInfo.setPersonType(PersonType.MANAGER);
-
-            if (person instanceof Worker)
-                personDTOInfo.setPersonType(PersonType.WORKER);
-
-            if (person instanceof Student)
-                personDTOInfo.setPersonType(PersonType.STUDENT);
-
-//            personDTOInfo.setPersonType(PersonType.WORKER);
+            personDTOInfo.setPersonType(person.getPersonType());
             personDTOInfo.setUsername(person.getUsername());
             personDTOInfo.setPassword(person.getPassword());
             personDTOInfo.setEmail(person.getEmail());
@@ -157,8 +148,10 @@ public class DTOConverter {
         if (baseProduct != null) {
             baseProductDTOInfo.setBaseProductId(baseProduct.getId());
             baseProductDTOInfo.setName(baseProduct.getName());
+            baseProductDTOInfo.setNetto(baseProduct.getNetto());
             baseProductDTOInfo.setBrutto(baseProduct.getBrutto());
-            baseProductDTOInfo.setCategoryName(baseProduct.getCategory().getName());
+            if (baseProduct.getCategory() != null)
+                baseProductDTOInfo.setCategoryName(baseProduct.getCategory().getName());
         }
         return baseProductDTOInfo;
     }

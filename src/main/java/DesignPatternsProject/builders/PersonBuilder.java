@@ -69,15 +69,19 @@ public class PersonBuilder implements AbstractPersonBuilder{
         switch (clazz.getName()) {
             case "DesignPatternsProject.entities.actors.Client":
                 person = new Client(username, password, email);
+                person.setPersonType(PersonType.CLIENT);
                 break;
             case "DesignPatternsProject.entities.actors.Manager":
                 person = new Manager(username, password, email);
+                person.setPersonType(PersonType.MANAGER);
                 break;
             case "DesignPatternsProject.entities.actors.Student":
                 person = new Student(username, password, email);
+                person.setPersonType(PersonType.STUDENT);
                 break;
             case "DesignPatternsProject.entities.actors.Worker":
                 person = new Worker(username, password, email);
+                person.setPersonType(PersonType.WORKER);
                 break;
             default:
                 throw new IllegalArgumentException("constructor cannot set invalid type of Person Object");

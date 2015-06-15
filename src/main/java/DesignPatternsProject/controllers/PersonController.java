@@ -2,6 +2,7 @@ package DesignPatternsProject.controllers;
 
 import DesignPatternsProject.DTO.*;
 import DesignPatternsProject.entities.actors.Person;
+import DesignPatternsProject.entities.actors.PersonType;
 import DesignPatternsProject.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +24,24 @@ public class PersonController {
 
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public PersonDTOInfo login(@RequestBody LoginDataDTO loginDataDTO) {
-        return null;
+    public LoginDTOInfo login(@RequestBody LoginDataDTO loginDataDTO)
+    {
+        LoginDTOInfo loginDTOInfo = new LoginDTOInfo();
+        Person person = personService.loginToSystem(loginDataDTO);
+        if(person==null){
+            loginDTOInfo.setPersonType(null);
+            loginDTOInfo.setName("fake");
+            loginDTOInfo.setId(-1L);
+        }else {
+
+
+            if(person.getPersonType()!=null)
+                loginDTOInfo.setPersonType(person.getPersonType());
+            if(person.getPersonality()!=null)
+            loginDTOInfo.setName(person.getPersonality().getName());
+            loginDTOInfo.setId(person.getId());
+        }
+        return loginDTOInfo;
     }
 
     @ResponseBody

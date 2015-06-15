@@ -57,6 +57,30 @@ public abstract class BaseProduct {
     }
 
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        BaseProduct that = (BaseProduct) o;
+//
+//        if (Double.compare(that.netto, netto) != 0) return false;
+//        if (!name.equals(that.name)) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result;
+//        long temp;
+//        result = name.hashCode();
+//        temp = Double.doubleToLongBits(netto);
+//        result = 31 * result + (int) (temp ^ (temp >>> 32));
+//        return result;
+//    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,7 +88,6 @@ public abstract class BaseProduct {
 
         BaseProduct that = (BaseProduct) o;
 
-        if (Double.compare(that.netto, netto) != 0) return false;
         if (!name.equals(that.name)) return false;
 
         return true;
@@ -72,12 +95,7 @@ public abstract class BaseProduct {
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = name.hashCode();
-        temp = Double.doubleToLongBits(netto);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
+        return name.hashCode();
     }
 
     public Long getId() {

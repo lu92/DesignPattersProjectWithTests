@@ -38,7 +38,6 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     private BaseProductRepository baseProductRepository;
 
 
-
     @Override
     public AbstractOrderDetails createNewOrderDetails(OrderDetailsFormDTO orderDetailsFormDTO) {
         return orderDetailsRepository.save(toOrderDetails(orderDetailsFormDTO));

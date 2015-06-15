@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Strona Wzorce Projektowe Lucjan Bik</title>
+
+    <script src="properties/angular.js"></script>
+    <script src="properties/angular-route.js"></script>
+    <link href="properties/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="properties/bootstrap.css" rel="stylesheet"/>
+    <script src="properties/jquery.min.js"></script>
+    <script src="properties/bootstrap.min.js"></script>
+
+    <!-- my links -->
+    <script src="controllers/mianCtrl.js"></script>
+    <script src="controllers/dodajKategorieCtrl.js"></script>
+    <script src="controllers/dodajKlientaCtrl.js"></script>
+    <script src="controllers/dodajPracownikaCtrl.js"></script>
+    <script src="controllers/dodajProduktCtrl.js"></script>
+    <script src="controllers/wyswietlPracownikowCtrl.js"></script>
+    <script src="controllers/dodajNowaUsluge.js"></script>
+    <script src="controllers/wyswietlKlientowCtrl.js"></script>
+    <script src="controllers/zluzZamowienieCtrl.js"></script>
+    <script src="controllers/pokarzWszystkieProduktyCtrl.js"></script>
+
+    <script src="controllers/zobaczDaneKontaktoweCtrl.js"></script>
+    <script src="controllers/OdebraneWiadomosciCtrl.js"></script>
+    <script src="controllers/NieodebraneWiadomoscieCtrl.js"></script>
+    <script src="controllers/ZobaczZamowieniaCtrl"></script>
+
+
+</head>
+<body ng-controller="mainAppCtrl">
+
+<!--header-->
+<div>
+    <header class="well">
+        <div>
+
+            <h1 class="text-center text-info">{{pageName}}
+                <a class="btn-danger btn-group btn pull-right" ng-click="logOutFunction()" href="#/">
+                    Logout
+                </a>
+            </h1>
+        </div>
+    </header>
+</div>
+
+<div ng-hide="loginStatus">
+    <!--login form-->
+    <div class="col-sm-3">
+        <!--left collumn-->
+    </div>
+    <div class="col-sm-5">
+        <div class="well text-center text-primary">
+            <h3>Login Form</h3>
+        </div>
+        <!-- User form -->
+        <form name="loginForm" novalidate>
+            <div class="form-group">
+                <label>Login:</label>
+                <input name="userLogin" type="text" class="form-control" required ng-model="UserLoginInfo.username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input name="userPassword" type="text" class="form-control" required ng-model="UserLoginInfo.password">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-block btn-success" ng-click="loginLucjan(UserLoginInfo)"
+                        ng-disabled="loginForm.$invalid">
+                    LogIn
+                </button>
+            </div>
+        </form>
+        <div>
+            <br>
+
+            <div ng-show="loginForm.$invalid" class="well">
+                <span class="text-center text-danger"><h2>Invalid Login Form</h2></span>
+            </div>
+
+            <br>
+
+            <div ng-show="invalidDataAccount" class="well">
+                <span class="text-center text-danger"><h2>Check login or password</h2></span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-sm-3">
+        <!--right collumn-->
+    </div>
+</div>
+<!--Menu-->
+<div ng-show="loginStatus">
+
+    <div ng-show="sprawdzStatus(1)">
+        <ul class="nav nav-tabs">
+
+            <li role="presentation"><a href="#/">Home</a></li>
+            <li role="presentation"><a href="#/dodajPracownika">Dodaj Pracownika</a></li>
+            <li role="presentation"><a href="#/dodajKlienta">Dodaj Klienta</a></li>
+            <li role="presentation"><a href="#/dodajProdukt">Dodaj Nowy produkt</a> </li>
+            <li role="presentation"><a href="#/dodajNowaUsluge">Dodaj nowa usluge</a> </li>
+            <li role="presentation"><a href="#/wyswietlOsoby">Wyswiet pracownkow</a> </li>
+            <li role="presentation"><a href="#/dodajKategorie">Dodaj Kategorie</a> </li>
+            <li role="presentation"><a href="#/wyswietlKlientow">wyswietl kilentow</a> </li>
+            <li role="presentation"><a href="#/WyswietlProdukty">wyswietl produkty</a> </li>
+            <!-- klient-->
+
+        </ul>
+    </div>
+
+    <!--Klient-->
+
+    <div ng-show = "sprawdzStatus(3)">
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="#/zluzZamowienie">Zluż zamówienie</a> </li>
+            <li role="presentation"><a href="#/OdebraneWiadomosci">Odebrana Wiadomości</a> </li>
+            <li role="presentation"><a href="#/NieodebraneWiadomosci">Nieodebrane wiadmosmcis</a> </li>
+            <li role="presentation"><a href="#/ZobaczZamowienia">Zamowienia</a> </li>
+            <li role="presentation"><a href="#/ZobaczDaneKontaktowe">Dane Kontaktowe</a> </li>
+        </ul>
+
+    </div>
+
+    <!--pracownik -->
+
+    <div ng-show="sprawdzStatus(2)">>
+        <ul class="nav-tabs nav">
+            <li role="presentation"><a href="#/OdebraneWiadomosci">Odebrane Wiadomosci</a> </li>
+            <li role="presentation"><a href="#/NieodebraneWiadomosci">Nieodebrane Wiadomosci </a> </li>
+        </ul>
+    </div>
+</div>
+
+
+<!--main app contex-->
+
+<div ng-show="loginStatus">
+    <div ng-view>
+
+
+    </div>
+</div>
+
+</body>
+</html>

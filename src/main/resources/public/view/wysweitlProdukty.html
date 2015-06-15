@@ -1,0 +1,34 @@
+<div ng-controller="pokarzWszystkieProduktyCtrl">
+    <div class="well">
+        <h2 class="text text-danger text-center">
+            {{pokarz_wszystkieProdukty}}
+        </h2>
+    </div>
+
+    <div class="col-sm-6">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nazwa</th>
+                <th>Cena Netto</th>
+                <th>Kategoria</th>
+                <th>Usun</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="item in AllProducts">
+                <td>{{item.baseProductId}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.netto}}</td>
+                <td>{{item.categoryName}}</td>
+                <td>
+                    <button ng-click="usunProdukt(item.baseProductId)">
+                        Usun
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+</div>

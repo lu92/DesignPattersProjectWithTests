@@ -1,0 +1,51 @@
+<div ng-controller="dodajKategorieCtrl">
+    <div class="well">
+        <h2 class="text text-danger text-center">
+            {{dodajKategorie}}
+        </h2>
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+    <div class="col-sm-4">
+        <div class="well">
+            <form>
+                <div class="form-group">
+                    <label>Category Name</label>
+                    <input type="text" ng-model="newCategory.name" class="form-control">
+                </div>
+                <div>
+                    <button class="btn btn-default btn-success" ng-click="dodajKategoriee(newCategory)">
+                        dodaj
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nazwa</th>
+                <th>Usun</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="item in AllCategories">
+                <td>{{item.categoryId}}</td>
+                <td>{{item.name}}</td>
+                <td>
+                    <button ng-click="usunKategorie(item.categoryId)">
+                        Usun
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-3"></div>
+</div>

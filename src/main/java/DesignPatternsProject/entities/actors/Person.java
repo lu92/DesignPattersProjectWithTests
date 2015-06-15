@@ -53,6 +53,7 @@ public class Person {
 //    @Transient
     private Set<Mail> mailStorage = new HashSet<>();
 
+    private PersonType personType;
 
     public Person() {
     }
@@ -231,6 +232,14 @@ public class Person {
 
     public void setMailStorage(Set<Mail> mailStorage) {
         this.mailStorage = mailStorage;
+    }
+
+    public PersonType getPersonType() {
+        return personType;
+    }
+
+    public void setPersonType(PersonType personType) {
+        this.personType = personType;
     }
 
     @Override
