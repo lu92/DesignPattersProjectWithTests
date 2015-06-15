@@ -32,7 +32,8 @@ public class PolishTaxation08 implements TaxationStrategy {
 
     @Override
     public double calculateTax() {
-        return TAX * orderDetails.getTotalNettoPrice() / 100;
+        double netto = orderDetails.getTotalNettoPrice();
+        return TAX * netto / 100;
     }
 
     @Override

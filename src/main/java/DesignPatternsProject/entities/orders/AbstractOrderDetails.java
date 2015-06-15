@@ -68,18 +68,22 @@ public abstract class AbstractOrderDetails {
         switch (taxationType) {
             case PolishTaxation08:
                 taxation = new PolishTaxation08(CountryResources.getPoland());
+                taxation.setOrderDetails(this);
                 break;
 
             case PolishTaxation15:
                 taxation = new PolishTaxation15(CountryResources.getPoland());
+                taxation.setOrderDetails(this);
                 break;
 
             case PolishTaxation23:
                 taxation = new PolishTaxation23(CountryResources.getPoland());
+                taxation.setOrderDetails(this);
                 break;
 
             case UsaTaxation:
                 taxation = new UsaTaxation(CountryResources.getUnitedStates());
+                taxation.setOrderDetails(this);
                 break;
         }
     }
